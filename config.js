@@ -1,1 +1,1 @@
-window.FBCFG={apiKey:"AIzaSyDFYpJNM-j0CExDYs61Qdg6ljD9okQCyas",authDomain:"rz-cyber-cafe-ec0c9.firebaseapp.com",projectId:"rz-cyber-cafe-ec0c9",storageBucket:"rz-cyber-cafe-ec0c9.firebasestorage.app",messagingSenderId:"107539515257",appId:"1:107539515257:web:ebcb6384701ad349d251a8"};
+window.FBCFG={apiKey:"AIzaSyDgqGk_m4kkJl_vtMv9tQM8fI5nJexFE1w",authDomain:"lura-hisab.firebaseapp.com",projectId:"lura-hisab",storageBucket:"lura-hisab.firebasestorage.app",messagingSenderId:"453426916982",appId:"1:453426916982:web:5708a2b6972740ed4fb957"};
