@@ -91,6 +91,16 @@ nav button.on .ni{background:var(--bg)}
 .sv{display:grid;grid-template-columns:1fr 78px 62px 44px;gap:6px;align-items:center}.sv input{margin:2px 0;min-width:0}
 .sec.sm{margin:0;min-height:44px;padding:0 2px;font-size:13px;width:100%}
 .dash{display:block}
+body{background:radial-gradient(900px 420px at 50% -8%,rgba(201,162,39,.16),transparent),var(--bg)}
+.card{box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.05)}
+.pri{background:linear-gradient(135deg,#ecc94b,#b8901a);color:#1a1405}
+.ic{background:rgba(201,162,39,.18)}
+.jb{border-color:rgba(201,162,39,.4)}
+.jb:active{background:rgba(201,162,39,.22)}
+.chips button.on,.seg button.on{background:#c9a227;border-color:#c9a227;color:#1a1405}
+nav button.on .ni{background:rgba(201,162,39,.25)}
+.top h1{background:linear-gradient(90deg,#b8901a,#e9c64f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wk{border-color:rgba(201,162,39,.45)}
 @media(min-width:900px){
 body{padding-bottom:0;padding-top:60px}
 main{max-width:760px;padding:22px 28px}main.wide{max-width:1240px}
@@ -123,26 +133,33 @@ function fresh(){var r={};J.forEach(function(j){r[j[0]]=j[2]});return{week:{star
 var DB=null,FBU=null,RM=0,lastSync='';
 var now=function(){return new Date().toISOString()};
 var tod=function(){return now().slice(0,10)};
+var maxU='';
+function now2(){var t=Date.now(),m=maxU?Date.parse(maxU):0;if(m>=t)t=m+1;maxU=new Date(t).toISOString();return maxU}
+function SV(){return S.svc.filter(function(s){return!s.del})}
+function svp(s){s.t=now2();save();fbp('h_svc',s)}
+function svcMig(){S.svc.forEach(function(s){if(s.t!=null)return;var m=/^d(\d+)$/.exec(s.id),b=m&&DEF[+m[1]];s.t=(b&&b[0]==s.n&&(b[1]||0)==(s.r||0)&&b[2]==s.u)?'0':now2()})}
 function idb(){return new Promise(function(res){try{var q=indexedDB.open('luraHisab',1);q.onupgradeneeded=function(){q.result.createObjectStore('kv')};q.onsuccess=function(){res(q.result)};q.onerror=function(){res(null)}}catch(e){res(null)}})}
 var DEF=[['প্রিন্ট',2,1,'🖨️','print'],['কালার প্রিন্ট',0,1,'🎨'],['ফটোকপি',1,1,'📄','copy'],['স্ক্যান',10,1,'🖼️','scan'],['লেমিনেশন',0,0,'🧷'],['অনলাইন ফর্ম',50,0,'📝','form'],['আধার সেবা',0,0,'🪪'],['প্যান কার্ড',0,0,'💳'],['রেশন কার্ড',0,0,'🍚'],['ভোটার কার্ড',0,0,'🗳️'],['পাসপোর্ট/ভিসা',0,0,'🛂'],['ফটো',30,0,'📷','photo'],['টাইপিং',20,1,'⌨️','type'],['মোবাইল রিচার্জ',0,0,'📱'],['DTH রিচার্জ',0,0,'📺'],['বিদ্যুৎ বিল',0,0,'💡'],['ট্রেন টিকিট',0,0,'🚆'],['বাস/ফ্লাইট টিকিট',0,0,'🚌'],['জন্ম/মৃত্যু সনদ',0,0,'👶'],['জাতি/আয়/বাসিন্দা সনদ',0,0,'📜'],['স্বাস্থ্যসাথী',0,0,'🏥'],['সরকারি প্রকল্প ফর্ম',0,0,'🏛️'],['চাকরির আবেদন',0,0,'💼'],['ব্যাংক/KYC কাজ',0,0,'🏦'],['ইমেইল/আইডি তৈরি',0,0,'✉️'],['অন্যান্য',0,0,'➕','oth']];
 function norm(){if(!S||!S.week||!Array.isArray(S.entries))S=fresh();S.hist=S.hist||[];S.rates=S.rates||fresh().rates;S.u=S.u||'';
- if(!Array.isArray(S.svc))S.svc=DEF.map(function(d,i){var r=d[4]&&S.rates[d[4]]!=null?S.rates[d[4]]:d[1];return{id:'d'+i,n:d[0],r:r,u:d[2],i:d[3]}})}
+ if(!Array.isArray(S.svc))S.svc=DEF.map(function(d,i){var r=d[4]&&S.rates[d[4]]!=null?S.rates[d[4]]:d[1];return{id:'d'+i,n:d[0],r:r,u:d[2],i:d[3]}});svcMig()}
 function load(){return idb().then(function(d){DB=d;if(!d)return null;return new Promise(function(res){try{var g=d.transaction('kv').objectStore('kv').get('S');g.onsuccess=function(){res(g.result)};g.onerror=function(){res(null)}}catch(e){res(null)}})}).then(function(d){if(!d)try{d=JSON.parse(localStorage.getItem(K))}catch(e){}S=d;norm();save()})}
 function save(){var ok=0;try{localStorage.setItem(K,JSON.stringify(S));ok=1}catch(e){}if(DB)try{DB.transaction('kv','readwrite').objectStore('kv').put(S,'S');ok=1}catch(e){}saveOk=!!ok}
 function fbp(c,o){if(RM||!window.FB2||!FBU)return;FB2.push(c,o).catch(function(e){lastSync='⚠️ '+(e.code||e)})}
-function ch(x){x.u=now();save();fbp('h_entries',x)}
-function chM(){S.u=now();save();fbp('h_meta',{id:'cfg',u:S.u,week:S.week,rates:S.rates,svc:S.svc})}
+function ch(x){x.u=now2();save();fbp('h_entries',x)}
+function chM(){S.u=now2();save();fbp('h_meta',{id:'cfg',u:S.u,week:S.week,rates:S.rates})}
 window.fbAuth=function(u){FBU=u;lastSync=u?'':lastSync;if(S&&tab=='cfg')r()};
 window.fbErr=function(e){lastSync='⚠️ '+e;if(S&&tab=='cfg')r()};
 window.fbSnap=function(c,rem){if(!S){setTimeout(function(){window.fbSnap(c,rem)},200);return}
- var chg=0,m={};rem.forEach(function(x){m[x.id]=x});RM=1;
+ var chg=0,m={};rem.forEach(function(x){m[x.id]=x;var v=x.u||x.t||'';if(v>maxU)maxU=v});RM=1;
  try{if(c=='h_entries'){rem.forEach(function(x){var l=S.entries.filter(function(e){return e.id==x.id})[0];if(!l){S.entries.push(x);chg=1}else if((x.u||'')>(l.u||'')){Object.assign(l,x);chg=1}})}
  else if(c=='h_hist'){rem.forEach(function(x){if(!S.hist.some(function(h){return h.start==x.start})){S.hist.push(x);chg=1}})}
- else{var g=m.cfg;if(g&&(g.u||'')>(S.u||'')){S.week=g.week;S.rates=g.rates;if(g.svc)S.svc=g.svc;S.u=g.u;chg=1}}}finally{RM=0}
+ else if(c=='h_svc'){rem.forEach(function(x){var l=S.svc.filter(function(e){return e.id==x.id})[0];if(!l){S.svc.push(x);chg=1}else if((x.t||'')>(l.t||'')){Object.assign(l,x);chg=1}})}
+ else{var g=m.cfg;if(g&&(g.u||'')>(S.u||'')){S.week=g.week;S.rates=g.rates;S.u=g.u;chg=1}}}finally{RM=0}
  if(chg){save();r()}
  if(c=='h_entries')S.entries.forEach(function(e){var x=m[e.id];if(!e.u)e.u=new Date(e.ts).toISOString();if(!x||e.u>(x.u||''))fbp(c,e)});
  else if(c=='h_hist')S.hist.forEach(function(h){h.id=''+h.start;if(!m[h.id])fbp(c,h)});
- else{var g2=m.cfg;if(!g2||(S.u||'')>(g2.u||''))fbp(c,{id:'cfg',u:S.u||now(),week:S.week,rates:S.rates,svc:S.svc})}
+ else if(c=='h_svc')S.svc.forEach(function(s){if(s.t==null)s.t='0';var x=m[s.id];if(!x||s.t>(x.t||''))fbp(c,s)});
+ else{var g2=m.cfg;if(!g2||(S.u||'')>(g2.u||''))fbp(c,{id:'cfg',u:S.u||now2(),week:S.week,rates:S.rates})}
  lastSync='শেষ সিঙ্ক: '+new Date().toLocaleTimeString('en-IN');if(tab=='cfg')r()};
 function dl(n,t,m){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m||'application/json'}));a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
 function bkWarn(){var t=0;try{t=localStorage.getItem('lastBkISO')}catch(e){}var old=!t||(Date.now()-new Date(t))>7*864e5;return old?'<div class=card style="border-color:#ef4444"><b style="color:#ef4444">⚠️ '+(t?'৭ দিনের বেশি ব্যাকআপ নেওয়া হয়নি':'এখনো ব্যাকআপ নেওয়া হয়নি')+'</b><button class=sec data-a=tab data-v=cfg>💾 ব্যাকআপ নিন</button></div>':''}
@@ -162,9 +179,9 @@ function calc(){var jc=0,ju=0,ex=0,hm=0,td=0,du=0,now=new Date().toDateString();
   if(x.t=='job'){if(x.p=='upi')ju+=x.a;else jc+=x.a;if(new Date(x.ts).toDateString()==now)td+=x.a}
   else if(x.t=='exp')ex+=x.a;else if(x.t=='home')hm+=x.a});
  var dr=S.week.open+jc-ex+hm;return{jc:jc,ju:ju,ex:ex,hm:hm,td:td,du:du,dr:dr,mine:dr-hm}}
-function jgrid(){var q=(window.SQ||'').toLowerCase();var L=S.svc.filter(function(s){return!q||s.n.toLowerCase().indexOf(q)>=0});return L.length?L.map(function(s){return '<button class=jb data-a=job data-v='+s.id+'><span class=ic>'+s.i+'</span>'+esc(s.n)+(s.r?'<small>'+fmt(s.r)+(s.u?'/পাতা':'')+'</small>':'')+'</button>'}).join(''):'<div class=empty style="grid-column:1/-1">এই নামে সার্ভিস নেই। সেটিংসে যোগ করুন।</div>'}
+function jgrid(){var q=(window.SQ||'').toLowerCase();var L=SV().filter(function(s){return!q||s.n.toLowerCase().indexOf(q)>=0});return L.length?L.map(function(s){return '<button class=jb data-a=job data-v='+s.id+'><span class=ic>'+s.i+'</span>'+esc(s.n)+(s.r?'<small>'+fmt(s.r)+(s.u?'/পাতা':'')+'</small>':'')+'</button>'}).join(''):'<div class=empty style="grid-column:1/-1">এই নামে সার্ভিস নেই। সেটিংসে যোগ করুন।</div>'}
 function svcCard(){return '<div class=card><b>সার্ভিস ও রেট</b><p class=mut>রেট বসালে এন্ট্রির সময় টাকা নিজে বসবে। রেট ফাঁকা রাখলে টাকা হাতে লিখতে হবে। নাম বা রেট বদলে বাইরে চাপলেই সেভ হয়।</p>'
- +S.svc.map(function(s){return '<div class=sv><input data-sn='+s.id+' value="'+esc(s.n)+'"><input data-sr='+s.id+' type=number inputmode=decimal placeholder="হাতে" value="'+(s.r||'')+'"><button class="sec sm" data-a=su data-v='+s.id+'>'+(s.u?'পাতা':'ফ্ল্যাট')+'</button><button class="sec sm" data-a=sd data-v='+s.id+'>🗑️</button></div>'}).join('')
+ +SV().map(function(s){return '<div class=sv><input data-sn='+s.id+' value="'+esc(s.n)+'"><input data-sr='+s.id+' type=number inputmode=decimal placeholder="হাতে" value="'+(s.r||'')+'"><button class="sec sm" data-a=su data-v='+s.id+'>'+(s.u?'পাতা':'ফ্ল্যাট')+'</button><button class="sec sm" data-a=sd data-v='+s.id+'>🗑️</button></div>'}).join('')
  +'<hr><b>নতুন সার্ভিস যোগ করুন</b><input id=nn placeholder="সার্ভিসের নাম"><input id=nr type=number inputmode=decimal placeholder="রেট (ফাঁকা = হাতে লিখব)"><label><input type=checkbox id=nu style="width:auto;min-height:0;margin-right:8px">প্রতি পাতা/কপি হিসাবে রেট</label><button class=pri data-a=sa>+ সার্ভিস যোগ করুন</button></div>'}
 function vHome(){var c=calc(),tot=Math.max(c.dr,1),mp=Math.max(0,c.mine)/tot*100,op=Math.max(0,c.hm)/tot*100,td=new Date().toDateString(),rc=S.entries.filter(function(x){return!x.v&&new Date(x.ts).toDateString()==td}).sort(function(a,b){return b.ts-a.ts}).slice(0,15);
  return bkWarn()+'<div class=top><div class=brand><img class=lg src=icon-192.png alt=""><div><small>লুরা ডিজিটাল সেবা কেন্দ্র</small><h1>ক্যাশ খাতা</h1></div></div><div class=wk>সপ্তাহ: '+dt(S.week.start)+'</div></div>'
@@ -190,7 +207,7 @@ function vSet(){var c=calc();
  +'<div class=card><b>বাবুকে দেখানোর সারাংশ</b><textarea id=out readonly>'+esc(summary())+'</textarea><button class=sec data-a=copy>কপি করুন</button></div>'
  +(S.hist.length?'<h2>আগের সপ্তাহ</h2><div class=card>'+S.hist.slice(-8).reverse().map(function(h){return '<div class=row><div class=rm><b>'+dt(h.start)+' – '+dt(h.end)+'</b><small>বাবুর টাকা '+fmt(h.hm)+'</small></div><div class=ra><b class="'+(h.diff==null||h.diff==0?'':h.diff<0?'exp':'inc')+'">'+(h.diff==null?'গোনা হয়নি':h.diff==0?'ঠিক আছে':(h.diff<0?'কম ':'বেশি ')+fmt(Math.abs(h.diff)))+'</b></div></div>'}).join('')+'</div>':'')}
 function vCfg(){return '<h2>সেটিংস</h2>'+svcCard()
- +syBox()+'<div class=card><b>ব্যাকআপ</b><p class=mut>শেষ ব্যাকআপ: '+(function(){try{return localStorage.getItem('lastBk')}catch(e){}})()+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ</button><button class=sec data-a=ec>কাজের CSV (Excel)</button></div><div class=card><b>JSON থেকে ফিরিয়ে আনুন</b><p class=mut>শুধু মার্জ: নতুন এন্ট্রি যোগ হবে, পুরনো কিছু মুছবে না বা বদলাবে না।</p><input type=file id=rf accept=".json,application/json"></div><div class=card><b>গোপনীয়তা</b><p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p></div>'}
+ +syBox()+'<div class=card><b>ব্যাকআপ</b><p class=mut>শেষ ব্যাকআপ: '+(function(){try{return localStorage.getItem('lastBk')}catch(e){}})()+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ</button><button class=sec data-a=ec>কাজের CSV (Excel)</button></div><div class=card><b>JSON থেকে ফিরিয়ে আনুন</b><p class=mut>শুধু মার্জ: নতুন এন্ট্রি যোগ হবে, পুরনো কিছু মুছবে না বা বদলাবে না।</p><input type=file id=rf accept=".json,application/json"></div><div class=card><b>গোপনীয়তা</b><p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p></div><p class=mut style="text-align:center">ভার্সন ৩</p>'}
 function r(){var T=[['home','হোম','🏠'],['list','এন্ট্রি','🧾'],['set','সেটেলমেন্ট','🤝'],['cfg','সেটিংস','⚙️']];
  $('#v').className=tab=='home'?'wide':'';$('#v').innerHTML={home:vHome,list:vList,set:vSet,cfg:vCfg}[tab]();
  $('#nv').innerHTML=T.map(function(t){return '<button class="'+(tab==t[0]?'on':'')+'" data-a=tab data-v='+t[0]+'><span class=ni>'+t[2]+'</span>'+t[1]+'</button>'}).join('');window.scrollTo(0,0)}
@@ -222,9 +239,9 @@ var ACT={
   var c=calc(),av=$('#act').value,nf=parseFloat($('#nf').value);
   S.hist.push({start:S.week.start,end:Date.now(),open:S.week.open,hm:c.hm,jc:c.jc,ex:c.ex,expected:c.dr,diff:av===''?null:parseFloat(av)-c.dr});
   var hh=S.hist[S.hist.length-1];hh.id=''+hh.start;fbp('h_hist',hh);S.week={start:Date.now(),open:nf>=0?nf:0};armed=0;chM();r();toast('নতুন সপ্তাহ শুরু')},
- sa:function(){var n=$('#nn').value.trim();if(!n)return toast('সার্ভিসের নাম লিখুন');S.svc.push({id:'s'+Date.now().toString(36),n:n,r:parseFloat($('#nr').value)||0,u:$('#nu').checked?1:0,i:'🔹'});chM();r();toast('যোগ হয়েছে: '+n)},
- su:function(id){S.svc.forEach(function(s){if(s.id==id)s.u=s.u?0:1});chM();r()},
- sd:function(id){var s=S.svc.filter(function(x){return x.id==id})[0];if(s&&confirm('"'+s.n+'" সার্ভিস মুছবেন? আগের এন্ট্রি ঠিক থাকবে।')){S.svc=S.svc.filter(function(x){return x.id!=id});chM();r()}},
+ sa:function(){var n=$('#nn').value.trim();if(!n)return toast('সার্ভিসের নাম লিখুন');var o={id:'s'+Date.now().toString(36),n:n,r:parseFloat($('#nr').value)||0,u:$('#nu').checked?1:0,i:'🔹',t:''};S.svc.push(o);svp(o);r();toast('যোগ হয়েছে: '+n)},
+ su:function(id){S.svc.forEach(function(s){if(s.id==id){s.u=s.u?0:1;svp(s)}});r()},
+ sd:function(id){var s=S.svc.filter(function(x){return x.id==id})[0];if(s&&confirm('"'+s.n+'" সার্ভিস মুছবেন? আগের এন্ট্রি ঠিক থাকবে।')){s.del=1;svp(s);r()}},
  si:function(){if(!window.FB2)return toast('Firebase লোড হয়নি');FB2.in().catch(function(){toast('লগইন হয়নি')})},so:function(){FB2.out()},
  ej:function(){dl('lura-hisab-backup-'+tod()+'.json',JSON.stringify({app:'lura-hisab',version:1,exported:now(),data:{entries:S.entries,hist:S.hist,week:S.week,rates:S.rates}},null,1));try{localStorage.setItem('lastBk',new Date().toLocaleString('en-IN'));localStorage.setItem('lastBkISO',now())}catch(e){}r();toast('ব্যাকআপ ডাউনলোড হয়েছে')},
  ec:function(){var q=function(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'},R=[['তারিখ','ধরন','ক্যাটাগরি','টাকা','পেমেন্ট','নাম','নোট','অবস্থা'].map(q).join(',')];
@@ -238,7 +255,7 @@ document.addEventListener('input',function(ev){var e=ev.target;
  if(e.id=='qty'&&M&&M.rt){var q=parseFloat(e.value);$('#amt').value=q>0?q*M.rt:''}
  if(e.id=='act'){var c=calc(),v=parseFloat(e.value),d=$('#dif');d.innerHTML=isNaN(v)?'':v==c.dr?'<b class=inc>হিসাব ঠিক আছে</b>':v<c.dr?'<b class=exp>কম আছে '+fmt(c.dr-v)+'</b>':'<b class=own>বেশি আছে '+fmt(v-c.dr)+'</b>'}
  if(e.dataset&&e.dataset.r){S.rates[e.dataset.r]=parseFloat(e.value)||0;chM()}});
-document.addEventListener('change',function(ev){var e=ev.target,d=e.dataset||{},k=d.sn||d.sr;if(!k)return;var s=S.svc.filter(function(x){return x.id==k})[0];if(!s)return;if(d.sn)s.n=e.value.trim()||s.n;else s.r=parseFloat(e.value)||0;chM();toast('সেভ হয়েছে')});
+document.addEventListener('change',function(ev){var e=ev.target,d=e.dataset||{},k=d.sn||d.sr;if(!k)return;var s=S.svc.filter(function(x){return x.id==k})[0];if(!s)return;if(d.sn)s.n=e.value.trim()||s.n;else s.r=parseFloat(e.value)||0;svp(s);toast('সেভ হয়েছে')});
 document.addEventListener('input',function(ev){if(ev.target.id=='sq'){window.SQ=ev.target.value;$('#jb').innerHTML=jgrid()}});
 load().then(function(){r()});if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 </script>
@@ -248,7 +265,7 @@ import{getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider,signOut}fro
 import{getFirestore,collection,doc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 if(window.FBCFG){const app=initializeApp(window.FBCFG),au=getAuth(app),fs=getFirestore(app);let un=[];
 window.FB2={in:()=>signInWithPopup(au,new GoogleAuthProvider()),out:()=>signOut(au),push:(c,r)=>setDoc(doc(fs,'shops','main',c,r.id),r)};
-onAuthStateChanged(au,u=>{un.forEach(f=>f());un=[];window.fbAuth(u);if(u)['h_entries','h_meta','h_hist'].forEach(c=>un.push(onSnapshot(collection(fs,'shops','main',c),sn=>window.fbSnap(c,sn.docs.map(d=>d.data())),e=>window.fbErr(e.code))))})}
+onAuthStateChanged(au,u=>{un.forEach(f=>f());un=[];window.fbAuth(u);if(u)['h_entries','h_meta','h_hist','h_svc'].forEach(c=>un.push(onSnapshot(collection(fs,'shops','main',c),sn=>window.fbSnap(c,sn.docs.map(d=>d.data())),e=>window.fbErr(e.code))))})}
 </script>
 </body>
 </html>
