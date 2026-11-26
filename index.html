@@ -111,6 +111,33 @@ nav button.on{box-shadow:inset 0 -3px 0 var(--ink)}
 .jobs{grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
 .pn{top:50%;bottom:auto;transform:translateY(-50%);border-radius:18px;max-width:480px;animation:none;max-height:86%}
 }
+body{background:linear-gradient(180deg,#eef2ff 0,#fdf2f8 45%,#fff7ed 100%) fixed}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:linear-gradient(180deg,#0f1020,#150f1f 60%,#14100d) fixed}}
+.hero{background:linear-gradient(135deg,#4338ca,#7c3aed 55%,#db2777);color:#fff;border:0;box-shadow:0 12px 28px rgba(124,58,237,.35)}
+.hero .mut{color:rgba(255,255,255,.85)}.hero .own{color:#ffe08a}
+.top h1{background:linear-gradient(90deg,#4f46e5,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wk{border-color:#c7d2fe}
+.pri{background:linear-gradient(135deg,#06b6d4,#4f46e5);color:#fff}
+.chips button.on,.seg button.on{background:#4f46e5;border-color:#4f46e5;color:#fff}
+nav button.on{color:#4f46e5}nav button.on .ni{background:#e0e7ff}
+.g2 .card:nth-child(1){border-left:5px solid #10b981}.g2 .card:nth-child(2){border-left:5px solid #ef4444}.g2 .card:nth-child(3){border-left:5px solid #0ea5e9}.g2 .card:nth-child(4){border-left:5px solid #f59e0b}
+.jb{background:hsl(var(--h,40) 100% 95%);border:1.5px solid hsl(var(--h,40) 85% 74%);color:#1b1b2f;box-shadow:0 2px 6px hsl(var(--h,40) 70% 60%/.18)}
+.jb .ic{background:hsl(var(--h,40) 95% 86%)}.jb small{color:hsl(var(--h,40) 55% 28%)}
+.jb:active{background:hsl(var(--h,40) 95% 88%)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .jb{background:hsl(var(--h,40) 38% 21%);border-color:hsl(var(--h,40) 45% 40%);color:#f3f3fb}:root:not([data-theme="light"]) .jb .ic{background:hsl(var(--h,40) 40% 30%)}:root:not([data-theme="light"]) .jb small{color:hsl(var(--h,40) 60% 80%)}:root:not([data-theme="light"]) nav button.on .ni{background:#312e81}}
+.qe{display:flex;gap:8px;margin:0 0 10px}.qe input{margin:0;flex:1;min-width:0}
+.mic,.qb{min-height:48px;border:0;border-radius:12px;padding:0 16px;font-weight:700;color:#fff}.mic{background:#ec4899}.qb{background:#4f46e5}
+.dn .dr{display:grid;grid-template-columns:56px 1fr 84px;gap:8px;align-items:center}.dn .dr b{text-align:right}.dn input{margin:2px 0}
+.sv{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;border-bottom:1px solid var(--line);align-items:center}
+.sec.sm{width:auto;flex:0 0 auto;padding:0 11px;min-width:44px}
+@media(min-width:900px){
+.dash{grid-template-columns:minmax(0,2.4fr) minmax(270px,1fr)}
+.jobs{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.jb{min-height:98px;font-size:15px}.jb .ic{width:46px;height:46px;font-size:26px}
+.g2{grid-template-columns:repeat(4,1fr)}.g2 b{font-size:18px}
+.hero{padding:16px 20px}.hero .big{font-size:36px}
+.dash>div:last-child .row{padding:6px 2px}.dash>div:last-child .rm b{font-size:13px}.dash>div:last-child .rm small{font-size:11px}
+}
 </style>
 </head>
 <body>
@@ -135,15 +162,50 @@ var now=function(){return new Date().toISOString()};
 var tod=function(){return now().slice(0,10)};
 var maxU='';
 function now2(){var t=Date.now(),m=maxU?Date.parse(maxU):0;if(m>=t)t=m+1;maxU=new Date(t).toISOString();return maxU}
-function SV(){return S.svc.filter(function(s){return!s.del})}
 function svp(s){s.t=now2();save();fbp('h_svc',s)}
-function svcMig(){S.svc.forEach(function(s){if(s.t!=null)return;var m=/^d(\d+)$/.exec(s.id),b=m&&DEF[+m[1]];s.t=(b&&b[0]==s.n&&(b[1]||0)==(s.r||0)&&b[2]==s.u)?'0':now2()})}
+var EN=['Print','Color Print','Photocopy','Scan','Lamination','Online Form','Aadhaar','PAN Card','Ration Card','Voter Card','Passport Visa','Photo','Typing','Mobile Recharge','DTH Recharge','Electricity Bill','Train Ticket','Bus Flight Ticket','Birth Death Certificate','Caste Income Residence Certificate','Swasthya Sathi','Govt Scheme Form','Job Application','Bank KYC','Email ID Create','Others'];
+function svcMig(){S.svc.forEach(function(s,i){var m=/^d(\d+)$/.exec(s.id),b=m&&DEF[+m[1]];if(s.e==null)s.e=m&&EN[+m[1]]?EN[+m[1]]:'';if(s.o==null)s.o=i*10;if(s.t!=null)return;s.t=(b&&b[0]==s.n&&(b[1]||0)==(s.r||0)&&b[2]==s.u)?'0':now2()})}
+function SV(){return S.svc.filter(function(s){return!s.del}).sort(function(a,b){var k=function(s){return s.n=='অন্যান্য'?1e12:(s.o==null?5e11:s.o)};return k(a)-k(b)})}
+function bkData(){return{app:'lura-hisab',version:1,exported:now(),data:{entries:S.entries,hist:S.hist,week:S.week,rates:S.rates,svc:S.svc,cats:S.cats,lbl:S.lbl}}}
+function bn2en(t){return t.replace(/[০-৯]/g,function(d){return '০১২৩৪৫৬৭৮৯'.indexOf(d)})}
+function qparse(t){var x=bn2en(t).toLowerCase(),best=null,bl=0,m;
+ SV().forEach(function(s){[s.n,s.e].forEach(function(nm){nm=(nm||'').toLowerCase();if(nm&&x.indexOf(nm)>=0&&nm.length>bl){best=s;bl=nm.length}})});
+ var nums=(x.match(/\d+(?:\.\d+)?/g)||[]).map(Number),amt=0,qty=0;
+ if(m=x.match(/(\d+(?:\.\d+)?)\s*(?:টাকা|₹|rs|tk)/)||x.match(/(?:₹|rs\.?|tk)\s*(\d+(?:\.\d+)?)/))amt=+m[1];
+ if(m=x.match(/(\d+)\s*(?:পাতা|কপি|পিস|page|pcs|copy)/))qty=+m[1];
+ if(!amt&&!qty&&nums.length){if(best&&best.u&&best.r)qty=nums[0];else amt=nums[0]}
+ var pay=/বাকি|baki|due/.test(x)?'due':/upi|ইউপিআই|গুগল|ফোনপে|পেটিএম|phonepe|gpay/.test(x)?'upi':'cash';
+ return{s:best,amt:amt,qty:qty,pay:pay}}
+function difU(){var c=calc(),v=parseFloat($('#act').value),d=$('#dif');d.innerHTML=isNaN(v)?'':v==c.dr?'<b class=inc>হিসাব ঠিক আছে</b>':v<c.dr?'<b class=exp>কম আছে '+fmt(c.dr-v)+'</b>':'<b class=own>বেশি আছে '+fmt(v-c.dr)+'</b>'}
+var dst='';
+var DK=function(){var v=0;try{v=+localStorage.getItem('dKeep')}catch(e){}return v>0?v:10};
+function drv(u,o){o=o||{};o.headers=Object.assign({Authorization:'Bearer '+window.DTOK},o.headers||{});return fetch(u,o).then(function(r){if(!r.ok)throw r.status;return r.status==204?null:r.json()})}
+var DAPI='https://www.googleapis.com/drive/v3/files';
+async function dFolder(mk){var fid=null;try{fid=localStorage.getItem('dFid')}catch(e){}if(fid)return fid;
+ var q=await drv(DAPI+'?q='+encodeURIComponent("name='Lura Hisab Backup' and mimeType='application/vnd.google-apps.folder' and trashed=false")+'&fields=files(id)');fid=q.files[0]&&q.files[0].id;
+ if(!fid&&mk){var f=await drv(DAPI,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'Lura Hisab Backup',mimeType:'application/vnd.google-apps.folder'})});fid=f.id}
+ if(fid)try{localStorage.setItem('dFid',fid)}catch(e){}return fid}
+async function dBackup(){if(!window.DTOK||!S)return;
+ try{var fid=await dFolder(1),b='x'+Date.now(),meta=JSON.stringify({name:'lura-hisab-'+now().replace(/[:.]/g,'-')+'.json',parents:[fid]});
+  await drv('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:'--'+b+'\r\nContent-Type: application/json\r\n\r\n'+meta+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(bkData())+'\r\n--'+b+'--'});
+  var L=await drv(DAPI+'?q='+encodeURIComponent("'"+fid+"' in parents and trashed=false")+'&orderBy=createdTime&fields=files(id)&pageSize=100');
+  for(var i=0;i<L.files.length-DK();i++)await drv(DAPI+'/'+L.files[i].id,{method:'DELETE'});
+  dst='✅ শেষ Drive ব্যাকআপ: '+new Date().toLocaleTimeString('en-IN')}
+ catch(e){dst='⚠️ Drive ব্যাকআপ হয়নি ('+e+')';if(e==401)window.DTOK=null;if(e==404)try{localStorage.removeItem('dFid')}catch(x){}}
+ if(tab=='cfg')r(1)}
+window.dAuto=function(){dBackup()};
+async function dRestore(){if(!window.DTOK)return toast('আগে Drive-এ লগইন করুন');
+ try{var fid=await dFolder(0);if(!fid)return toast('Drive-এ এখনো কোনো ব্যাকআপ নেই');
+  var L=await drv(DAPI+'?q='+encodeURIComponent("'"+fid+"' in parents and trashed=false")+'&orderBy='+encodeURIComponent('createdTime desc')+'&fields=files(id,createdTime)&pageSize=20');
+  sheet('<h3>কোনটা ফিরিয়ে আনবেন?</h3>'+(L.files.length?L.files.map(function(f){return '<button class=sec data-a=dr data-v='+f.id+'>'+new Date(f.createdTime).toLocaleString('en-IN')+'</button>'}).join(''):'<p class=mut>কোনো ব্যাকআপ নেই</p>'))}
+ catch(e){toast('Drive থেকে আনা যায়নি ('+e+')')}}
+function driveBox(){var on=!!window.DTOK;return '<div class=card><b>📁 Google Drive ব্যাকআপ (অটো)</b><p class=mut>'+(on?'✅ চালু। প্রতিটি পরিবর্তনের কয়েক সেকেন্ড পর Drive-এর "Lura Hisab Backup" ফোল্ডারে নতুন ব্যাকআপ জমা হয়।':'বন্ধ। অ্যাপ খোলার পর একবার নিচের বোতামে লগইন করুন। Google প্রতি ঘণ্টায় অনুমতি নবায়ন চায়।')+(dst?'<br>'+esc(dst):'')+'</p><label>সর্বোচ্চ কয়টা ব্যাকআপ রাখবেন (বেশি হলে সবচেয়ে পুরনোটা নিজে মুছবে)<input data-dk=1 type=number inputmode=numeric value="'+DK()+'"></label><button class=pri data-a=dv>'+(on?'এখনই Drive-এ ব্যাকআপ নিন':'Drive চালু করুন')+'</button><button class=sec data-a=dl2>Drive থেকে ফিরিয়ে আনুন</button></div>'}
 function idb(){return new Promise(function(res){try{var q=indexedDB.open('luraHisab',1);q.onupgradeneeded=function(){q.result.createObjectStore('kv')};q.onsuccess=function(){res(q.result)};q.onerror=function(){res(null)}}catch(e){res(null)}})}
 var DEF=[['প্রিন্ট',2,1,'🖨️','print'],['কালার প্রিন্ট',0,1,'🎨'],['ফটোকপি',1,1,'📄','copy'],['স্ক্যান',10,1,'🖼️','scan'],['লেমিনেশন',0,0,'🧷'],['অনলাইন ফর্ম',50,0,'📝','form'],['আধার সেবা',0,0,'🪪'],['প্যান কার্ড',0,0,'💳'],['রেশন কার্ড',0,0,'🍚'],['ভোটার কার্ড',0,0,'🗳️'],['পাসপোর্ট/ভিসা',0,0,'🛂'],['ফটো',30,0,'📷','photo'],['টাইপিং',20,1,'⌨️','type'],['মোবাইল রিচার্জ',0,0,'📱'],['DTH রিচার্জ',0,0,'📺'],['বিদ্যুৎ বিল',0,0,'💡'],['ট্রেন টিকিট',0,0,'🚆'],['বাস/ফ্লাইট টিকিট',0,0,'🚌'],['জন্ম/মৃত্যু সনদ',0,0,'👶'],['জাতি/আয়/বাসিন্দা সনদ',0,0,'📜'],['স্বাস্থ্যসাথী',0,0,'🏥'],['সরকারি প্রকল্প ফর্ম',0,0,'🏛️'],['চাকরির আবেদন',0,0,'💼'],['ব্যাংক/KYC কাজ',0,0,'🏦'],['ইমেইল/আইডি তৈরি',0,0,'✉️'],['অন্যান্য',0,0,'➕','oth']];
 function norm(){if(!S||!S.week||!Array.isArray(S.entries))S=fresh();S.hist=S.hist||[];S.rates=S.rates||fresh().rates;S.u=S.u||'';
  if(!Array.isArray(S.svc))S.svc=DEF.map(function(d,i){var r=d[4]&&S.rates[d[4]]!=null?S.rates[d[4]]:d[1];return{id:'d'+i,n:d[0],r:r,u:d[2],i:d[3]}});svcMig();if(!S.cats)S.cats={exp:EC.slice(),home:HC.slice()};if(!S.lbl)S.lbl={shop:'লুরা ডিজিটাল সেবা কেন্দ্র',own:'বাবুর পাঠানো টাকা',ownS:'বাবুর টাকা'}}
 function load(){return idb().then(function(d){DB=d;if(!d)return null;return new Promise(function(res){try{var g=d.transaction('kv').objectStore('kv').get('S');g.onsuccess=function(){res(g.result)};g.onerror=function(){res(null)}}catch(e){res(null)}})}).then(function(d){if(!d)try{d=JSON.parse(localStorage.getItem(K))}catch(e){}S=d;norm();save()})}
-function save(){var ok=0;try{localStorage.setItem(K,JSON.stringify(S));ok=1}catch(e){}if(DB)try{DB.transaction('kv','readwrite').objectStore('kv').put(S,'S');ok=1}catch(e){}saveOk=!!ok}
+function save(){var ok=0;try{localStorage.setItem(K,JSON.stringify(S));ok=1}catch(e){}if(DB)try{DB.transaction('kv','readwrite').objectStore('kv').put(S,'S');ok=1}catch(e){}saveOk=!!ok;if(window.DTOK&&S){clearTimeout(window.dT);window.dT=setTimeout(dBackup,8000)}}
 function fbp(c,o){if(RM||!window.FB2||!FBU)return;FB2.push(c,o).catch(function(e){lastSync='⚠️ '+(e.code||e)})}
 function ch(x){x.u=now2();save();fbp('h_entries',x)}
 function chM(){S.u=now2();save();fbp('h_meta',{id:'cfg',u:S.u,week:S.week,rates:S.rates,cats:S.cats,lbl:S.lbl})}
@@ -164,12 +226,13 @@ window.fbSnap=function(c,rem){if(!S){setTimeout(function(){window.fbSnap(c,rem)}
 function dl(n,t,m){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m||'application/json'}));a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
 function bkWarn(){var t=0;try{t=localStorage.getItem('lastBkISO')}catch(e){}var old=!t||(Date.now()-new Date(t))>7*864e5;return old?'<div class=card style="border-color:#ef4444"><b style="color:#ef4444">⚠️ '+(t?'৭ দিনের বেশি ব্যাকআপ নেওয়া হয়নি':'এখনো ব্যাকআপ নেওয়া হয়নি')+'</b><button class=sec data-a=tab data-v=cfg>💾 ব্যাকআপ নিন</button></div>':''}
 function syBox(){return '<div class=card><b>☁️ অটো সিঙ্ক (Firebase)</b><p class=mut>'+(FBU?'✅ চালু: '+esc(FBU.email)+'. প্রতিটি পরিবর্তন ফোন ও কম্পিউটারে নিজে থেকে মিলে যায়।':window.FB2?'লগইন করা নেই।':'config.js পাওয়া যায়নি, তাই সিঙ্ক বন্ধ। হিসাব শুধু এই ডিভাইসে আছে।')+(lastSync?'<br>'+esc(lastSync):'')+'</p>'+(FBU?'<button class=sec data-a=so>লগআউট</button>':window.FB2?'<button class=pri data-a=si>Google দিয়ে লগইন</button>':'')+'</div>'}
-function imp(f){if(!f)return;f.text().then(function(t){var j;try{j=JSON.parse(t);if(j.app!='lura-hisab'||!j.data||!Array.isArray(j.data.entries))throw 0}catch(e){return toast('ব্যাকআপ ফাইল ঠিক নেই')}
+function imp(f){if(f)f.text().then(impT)}
+function impT(t){var j;try{j=JSON.parse(t);if(j.app!='lura-hisab'||!j.data||!Array.isArray(j.data.entries))throw 0}catch(e){return toast('ব্যাকআপ ফাইল ঠিক নেই')}
  var nw=[],same=0,cf=0;j.data.entries.forEach(function(r){if(!r||typeof r.id!='string')return;var o=S.entries.filter(function(e){return e.id==r.id})[0];if(!o)nw.push(r);else if(JSON.stringify(o)==JSON.stringify(r))same++;else cf++});
  if(!confirm('নতুন: '+nw.length+' · একই (বাদ): '+same+' · গরমিল (পুরনোটা থাকবে): '+cf+'\nকিছু মুছবে না। ইম্পোর্ট করবেন?'))return;
  nw.forEach(function(r){r.u=r.u||now();S.entries.push(r);fbp('h_entries',r)});
  (j.data.hist||[]).forEach(function(h){if(!S.hist.some(function(x){return x.start==h.start}))S.hist.push(h)});
- (j.data.svc||[]).forEach(function(v){if(v&&v.id&&!S.svc.some(function(x){return x.id==v.id})){S.svc.push(v);svp(v)}});save();r();toast('ইম্পোর্ট হয়েছে: '+nw.length+'টি নতুন')})}
+ (j.data.svc||[]).forEach(function(v){if(v&&v.id&&!S.svc.some(function(x){return x.id==v.id})){S.svc.push(v);svp(v)}});save();r();toast('ইম্পোর্ট হয়েছে: '+nw.length+'টি নতুন')}
 document.addEventListener('change',function(ev){if(ev.target.id=='rf'){imp(ev.target.files[0]);ev.target.value=''}});
 function toast(t){var e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){e.style.display='none'},2200)}
 function calc(){var jc=0,ju=0,ex=0,hm=0,td=0,du=0,now=new Date().toDateString();
@@ -185,16 +248,18 @@ function namesCard(){var ta=function(k,l){return '<label>'+l+' (প্রতি 
  +'<label>মালিকের পাঠানো টাকার নাম (বড়)<input data-lb=own value="'+esc(S.lbl.own)+'"></label>'
  +'<label>ওই নাম (ছোট)<input data-lb=ownS value="'+esc(S.lbl.ownS)+'"></label>'
  +ta('exp','খরচের ধরন')+ta('home','মালিকের পাঠানো টাকার ধরন')+'</div>'}
-function jgrid(){var q=(window.SQ||'').toLowerCase();var L=SV().filter(function(s){return!q||s.n.toLowerCase().indexOf(q)>=0});return L.length?L.map(function(s){return '<button class=jb data-a=job data-v='+s.id+'><span class=ic>'+s.i+'</span>'+esc(s.n)+(s.r?'<small>'+fmt(s.r)+(s.u?'/পাতা':'')+'</small>':'')+'</button>'}).join(''):'<div class=empty style="grid-column:1/-1">এই নামে সার্ভিস নেই। সেটিংসে যোগ করুন।</div>'}
-function svcCard(){return '<div class=card><b>সার্ভিস ও রেট</b><p class=mut>রেট বসালে এন্ট্রির সময় টাকা নিজে বসবে। রেট ফাঁকা রাখলে টাকা হাতে লিখতে হবে। নাম বা রেট বদলে বাইরে চাপলেই সেভ হয়।</p>'
- +SV().map(function(s){return '<div class=sv><input data-sn='+s.id+' value="'+esc(s.n)+'"><input data-sr='+s.id+' type=number inputmode=decimal placeholder="হাতে" value="'+(s.r||'')+'"><button class="sec sm" data-a=su data-v='+s.id+'>'+(s.u?'পাতা':'ফ্ল্যাট')+'</button><button class="sec sm" data-a=sd data-v='+s.id+'>🗑️</button></div>'}).join('')
- +'<hr><b>নতুন সার্ভিস যোগ করুন</b><input id=nn placeholder="সার্ভিসের নাম"><input id=nr type=number inputmode=decimal placeholder="রেট (ফাঁকা = হাতে লিখব)"><label><input type=checkbox id=nu style="width:auto;min-height:0;margin-right:8px">প্রতি পাতা/কপি হিসাবে রেট</label><button class=pri data-a=sa>+ সার্ভিস যোগ করুন</button></div>'}
+var HUES=[4,28,48,142,172,196,222,252,282,326];
+function hu(s){var h=0;for(var i=0;i<s.id.length;i++)h+=s.id.charCodeAt(i)*(i+1);return HUES[h%10]}
+function jgrid(){var q=(window.SQ||'').toLowerCase();var L=SV().filter(function(s){return!q||(s.n+' '+(s.e||'')).toLowerCase().indexOf(q)>=0});return L.length?L.map(function(s){return '<button class=jb style="--h:'+hu(s)+'" data-a=job data-v='+s.id+'><span class=ic>'+s.i+'</span>'+esc(s.n)+(s.r?'<small>'+fmt(s.r)+(s.u?'/পাতা':'')+'</small>':'')+'</button>'}).join(''):'<div class=empty style="grid-column:1/-1">এই নামে সার্ভিস নেই। সেটিংসে যোগ করুন।</div>'}
+function svcCard(){return '<div class=card><b>সার্ভিস ও রেট</b><p class=mut>নাম, ইংরেজি নাম (সার্চের জন্য), রেট বদলে বাইরে চাপলেই সেভ হয়। ⬆ ⬇ দিয়ে সাজান, ⤒ দিয়ে সবার উপরে নিন। "অন্যান্য" সবসময় শেষে থাকে।</p>'
+ +SV().map(function(s){var v=' data-v='+s.id;return '<div class=sv><input data-sn='+s.id+' value="'+esc(s.n)+'" style="flex:1 1 130px"><input data-se='+s.id+' placeholder="English" value="'+esc(s.e||'')+'" style="flex:1 1 100px"><input data-sr='+s.id+' type=number inputmode=decimal placeholder="হাতে" value="'+(s.r||'')+'" style="flex:0 0 76px"><button class="sec sm" data-a=su'+v+'>'+(s.u?'পাতা':'ফ্ল্যাট')+'</button><button class="sec sm" data-a=sm data-v="'+s.id+'|top">⤒</button><button class="sec sm" data-a=sm data-v="'+s.id+'|-1">⬆</button><button class="sec sm" data-a=sm data-v="'+s.id+'|1">⬇</button><button class="sec sm" data-a=sd'+v+'>🗑️</button></div>'}).join('')
+ +'<hr><b>নতুন সার্ভিস যোগ করুন</b><input id=nn placeholder="সার্ভিসের নাম (বাংলা)"><input id=ne placeholder="English name (সার্চের জন্য)"><input id=nr type=number inputmode=decimal placeholder="রেট (ফাঁকা = হাতে লিখব)"><label><input type=checkbox id=nu style="width:auto;min-height:0;margin-right:8px">প্রতি পাতা/কপি হিসাবে রেট</label><button class=pri data-a=sa>+ সার্ভিস যোগ করুন</button></div>'}
 function vHome(){var c=calc(),tot=Math.max(c.dr,1),mp=Math.max(0,c.mine)/tot*100,op=Math.max(0,c.hm)/tot*100,td=new Date().toDateString(),rc=S.entries.filter(function(x){return!x.v&&new Date(x.ts).toDateString()==td}).sort(function(a,b){return b.ts-a.ts}).slice(0,15);
  return bkWarn()+'<div class=top><div class=brand><img class=lg src=icon-192.png alt=""><div><small>'+esc(S.lbl.shop)+'</small><h1>ক্যাশ খাতা</h1></div></div><div class=wk>সপ্তাহ: '+dt(S.week.start)+'</div></div>'
  +'<div class=dash><div><div class="card hero"><div class=mut>ড্রয়ারে মোট ক্যাশ</div><div class=big>'+fmt(c.dr)+'</div><div class=bar><i style="width:'+mp+'%;background:#fff"></i><i style="width:'+op+'%;background:#ffd166"></i></div><div class=leg><span>আপনার অংশ<b>'+fmt(c.mine)+'</b></span><span class=own style="text-align:right">'+esc(S.lbl.ownS)+'<b>'+fmt(c.hm)+'</b></span></div></div>'
  +'<div class=g2><div class=card><span class=mut>আজকের কাজের আয়</span><b class=inc>'+fmt(c.td)+'</b></div><div class=card><span class=mut>এই সপ্তাহে খরচ</span><b class=exp>'+fmt(c.ex)+'</b></div><div class=card><span class=mut>UPI-তে পাওয়া</span><b>'+fmt(c.ju)+'</b></div><div class=card><span class=mut>বাকি আছে</span><b>'+fmt(c.du)+'</b></div></div>'
  +'<div class=two><button class="big2 bx" data-a=exp>− খরচ</button><button class="big2 bo" data-a=home>'+esc(S.lbl.own)+'</button></div>'
- +'<div class=sl>সার্ভিস (চাপলেই এন্ট্রি)</div><input id=sq placeholder="🔍 সার্ভিস খুঁজুন" value="'+esc(window.SQ||'')+'"><div class=jobs id=jb>'+jgrid()+'</div><button class=sec data-a=tab data-v=cfg>⚙️ সার্ভিস যোগ / রেট বদলান</button></div>'
+ +'<div class=qe><input id=qi placeholder="🎙️ লিখুন বা বলুন: প্রিন্ট ২০ পাতা UPI"><button class=mic data-a=mic>🎤</button><button class=qb data-a=qgo>যোগ</button></div><div class=sl>সার্ভিস (চাপলেই এন্ট্রি)</div><input id=sq placeholder="🔍 সার্ভিস খুঁজুন / Search" value="'+esc(window.SQ||'')+'"><div class=jobs id=jb>'+jgrid()+'</div><button class=sec data-a=tab data-v=cfg>⚙️ সার্ভিস যোগ / রেট বদলান</button></div>'
  +'<div><div class=sl>আজকের এন্ট্রি</div><div class=card>'+(rc.length?rc.map(row).join(''):'<div class=empty>আজ এখনো কোনো এন্ট্রি নেই</div>')+'</div></div></div>'
  +(saveOk?'':'<p class=mut>ফোনে ডেটা সেভ হচ্ছে না। সেটিংসে গিয়ে ব্যাকআপ নিন।</p>')}
 function row(x){var col={job:'inc',exp:'exp',home:'own'}[x.t],sg=x.t=='exp'?'−':'+';
@@ -207,16 +272,16 @@ function ln(l,v,c){return '<div class=ln><span>'+l+'</span><b class="'+(c||'')+'
 function summary(){var c=calc();return 'সপ্তাহ: '+dt(S.week.start)+' থেকে '+dt(Date.now())+'\nবরাদ্দ: '+fmt(S.week.open)+'\nকাজ থেকে ক্যাশ আয়: '+fmt(c.jc)+'\nUPI-তে পাওয়া: '+fmt(c.ju)+'\nখরচ: '+fmt(c.ex)+'\n'+S.lbl.own+': '+fmt(c.hm)+'\nড্রয়ারে থাকার কথা: '+fmt(c.dr)+'\nবাকি: '+fmt(c.du)}
 function vSet(){var c=calc();
  return '<h2>শনিবারের সেটেলমেন্ট</h2><div class=card>'+ln('সপ্তাহের শুরুতে বরাদ্দ',S.week.open)+ln('কাজ থেকে ক্যাশ আয়',c.jc,'inc')+ln('খরচ',-c.ex,'exp')+ln(esc(S.lbl.own),c.hm,'own')+'<hr>'+ln('ড্রয়ারে থাকার কথা',c.dr)+'</div>'
- +'<div class=card><label>আসল ক্যাশ গুনে লিখুন<input id=act type=number inputmode=decimal></label><div id=dif class=mut></div>'
+ +'<div class=card><b>নোট গুনুন</b><div class=dn>'+[500,200,100,50,20,10].map(function(n){return '<div class=dr><span>₹'+n+'</span><input data-dn='+n+' type=number inputmode=numeric placeholder="কয়টা"><b id=dt'+n+'>₹0</b></div>'}).join('')+'<div class=dr><span>মুদ্রা</span><input data-dn=1 type=number inputmode=decimal placeholder="মোট টাকা"><b id=dt1>₹0</b></div></div><label>মোট গোনা ক্যাশ (নিজে লিখলেও চলবে)<input id=act type=number inputmode=decimal></label><div id=dif class=mut></div>'
  +'<label>নতুন সপ্তাহের বরাদ্দ<input id=nf type=number inputmode=decimal value='+S.week.open+'></label>'
  +'<button class=pri data-a=settle id=stb>সেটেলমেন্ট শেষ, নতুন সপ্তাহ শুরু</button></div>'
  +'<div class=card><b>বাবুকে দেখানোর সারাংশ</b><textarea id=out readonly>'+esc(summary())+'</textarea><button class=sec data-a=copy>কপি করুন</button></div>'
  +(S.hist.length?'<h2>আগের সপ্তাহ</h2><div class=card>'+S.hist.slice(-8).reverse().map(function(h){return '<div class=row><div class=rm><b>'+dt(h.start)+' – '+dt(h.end)+'</b><small>'+esc(S.lbl.ownS)+' '+fmt(h.hm)+'</small></div><div class=ra><b class="'+(h.diff==null||h.diff==0?'':h.diff<0?'exp':'inc')+'">'+(h.diff==null?'গোনা হয়নি':h.diff==0?'ঠিক আছে':(h.diff<0?'কম ':'বেশি ')+fmt(Math.abs(h.diff)))+'</b></div></div>'}).join('')+'</div>':'')}
 function vCfg(){return '<h2>সেটিংস</h2>'+svcCard()+namesCard()
- +syBox()+'<div class=card><b>ব্যাকআপ</b><p class=mut>শেষ ব্যাকআপ: '+(function(){try{return localStorage.getItem('lastBk')}catch(e){}})()+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ</button><button class=sec data-a=ec>কাজের CSV (Excel)</button></div><div class=card><b>JSON থেকে ফিরিয়ে আনুন</b><p class=mut>শুধু মার্জ: নতুন এন্ট্রি যোগ হবে, পুরনো কিছু মুছবে না বা বদলাবে না।</p><input type=file id=rf accept=".json,application/json"></div><div class=card><b>গোপনীয়তা</b><p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p></div><p class=mut style="text-align:center">ভার্সন ৪</p>'}
-function r(){var T=[['home','হোম','🏠'],['list','এন্ট্রি','🧾'],['set','সেটেলমেন্ট','🤝'],['cfg','সেটিংস','⚙️']];
+ +syBox()+driveBox()+'<div class=card><b>ব্যাকআপ</b><p class=mut>শেষ ব্যাকআপ: '+(function(){try{return localStorage.getItem('lastBk')}catch(e){}})()+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ</button><button class=sec data-a=ec>কাজের CSV (Excel)</button></div><div class=card><b>JSON থেকে ফিরিয়ে আনুন</b><p class=mut>শুধু মার্জ: নতুন এন্ট্রি যোগ হবে, পুরনো কিছু মুছবে না বা বদলাবে না।</p><input type=file id=rf accept=".json,application/json"></div><div class=card><b>গোপনীয়তা</b><p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p></div><p class=mut style="text-align:center">ভার্সন ৫</p>'}
+function r(k){var T=[['home','হোম','🏠'],['list','এন্ট্রি','🧾'],['set','সেটেলমেন্ট','🤝'],['cfg','সেটিংস','⚙️']];
  $('#v').className=tab=='home'?'wide':'';$('#v').innerHTML={home:vHome,list:vList,set:vSet,cfg:vCfg}[tab]();
- $('#nv').innerHTML=T.map(function(t){return '<button class="'+(tab==t[0]?'on':'')+'" data-a=tab data-v='+t[0]+'><span class=ni>'+t[2]+'</span>'+t[1]+'</button>'}).join('');window.scrollTo(0,0)}
+ $('#nv').innerHTML=T.map(function(t){return '<button class="'+(tab==t[0]?'on':'')+'" data-a=tab data-v='+t[0]+'><span class=ni>'+t[2]+'</span>'+t[1]+'</button>'}).join('');if(!k)window.scrollTo(0,0)}
 function sheet(h){$('#sh').innerHTML='<div class=bk data-a=close></div><div class=pn>'+h+'</div>';$('#sh').style.display='block'}
 function fld(id,l,ph,num){return '<label>'+l+'<input id='+id+(num?' type=number inputmode=decimal':' type=text')+' placeholder="'+(ph||'')+'"></label>'}
 function openE(t,c){M={t:t,c:c,p:'cash'};var j=S.svc.filter(function(x){return x.id==c})[0],h='';
@@ -245,9 +310,9 @@ var ACT={
   var c=calc(),av=$('#act').value,nf=parseFloat($('#nf').value);
   S.hist.push({start:S.week.start,end:Date.now(),open:S.week.open,hm:c.hm,jc:c.jc,ex:c.ex,expected:c.dr,diff:av===''?null:parseFloat(av)-c.dr});
   var hh=S.hist[S.hist.length-1];hh.id=''+hh.start;fbp('h_hist',hh);S.week={start:Date.now(),open:nf>=0?nf:0};armed=0;chM();r();toast('নতুন সপ্তাহ শুরু')},
- sa:function(){var n=$('#nn').value.trim();if(!n)return toast('সার্ভিসের নাম লিখুন');var o={id:'s'+Date.now().toString(36),n:n,r:parseFloat($('#nr').value)||0,u:$('#nu').checked?1:0,i:'🔹',t:''};S.svc.push(o);svp(o);r();toast('যোগ হয়েছে: '+n)},
- su:function(id){S.svc.forEach(function(s){if(s.id==id){s.u=s.u?0:1;svp(s)}});r()},
- sd:function(id){var s=S.svc.filter(function(x){return x.id==id})[0];if(s&&confirm('"'+s.n+'" সার্ভিস মুছবেন? আগের এন্ট্রি ঠিক থাকবে।')){s.del=1;svp(s);r()}},
+ sa:function(){var n=$('#nn').value.trim();if(!n)return toast('সার্ভিসের নাম লিখুন');var o={id:'s'+Date.now().toString(36),n:n,r:parseFloat($('#nr').value)||0,u:$('#nu').checked?1:0,i:'🔹',t:'',e:($('#ne').value||'').trim(),o:Math.max.apply(null,S.svc.map(function(z){return z.o||0}))+10};S.svc.push(o);svp(o);r(1);toast('যোগ হয়েছে: '+n)},
+ su:function(id){S.svc.forEach(function(s){if(s.id==id){s.u=s.u?0:1;svp(s)}});r(1)},
+ sd:function(id){var s=S.svc.filter(function(x){return x.id==id})[0];if(s&&confirm('"'+s.n+'" সার্ভিস মুছবেন? আগের এন্ট্রি ঠিক থাকবে।')){s.del=1;svp(s);r(1)}},
 ed:function(){var x=S.entries.filter(function(e){return e.id==M.id})[0];if(!x)return;M.e=x;
  var L=x.t=='job'?SV().map(function(s){return s.n}):x.t=='exp'?S.cats.exp:S.cats.home;if(L.indexOf(x.c)<0)L=[x.c].concat(L);
  sheet('<h3>এন্ট্রি এডিট</h3><label>টাকা<input id=ea type=number inputmode=decimal value="'+x.a+'"></label><label>ধরন<select id=ec2>'+L.map(function(n){return '<option'+(n==x.c?' selected':'')+'>'+esc(n)+'</option>'}).join('')+'</select></label>'
@@ -255,8 +320,18 @@ ed:function(){var x=S.entries.filter(function(e){return e.id==M.id})[0];if(!x)re
  +'<label>নাম<input id=en value="'+esc(x.nm||'')+'"></label><label>নোট<input id=eo value="'+esc(x.note||'')+'"></label><button class=pri data-a=es>সেভ করুন</button>')},
  es:function(){var x=M.e,a=parseFloat($('#ea').value);if(!(a>0))return toast('টাকার পরিমাণ লিখুন');x.a=a;x.c=$('#ec2').value;x.nm=$('#en').value.trim();x.note=$('#eo').value.trim();var p=$('#ep');if(p){x.p=p.value=='upi'?'upi':'cash';x.due=p.value=='due'?1:0}ch(x);ACT.close();r();toast('এডিট হয়েছে')},
  
+sm:function(v){var a=v.split('|'),L=SV().filter(function(s){return s.n!='অন্যান্য'}),i=-1;L.forEach(function(s,k){if(s.id==a[0])i=k});if(i<0)return;
+  if(a[1]=='top'){L[i].o=Math.min.apply(null,L.map(function(x){return x.o||0}))-10;svp(L[i])}
+  else{var j=i+ +a[1];if(j<0||j>=L.length)return;var t=L[i].o;L[i].o=L[j].o;L[j].o=t;svp(L[i]);svp(L[j])}r(1)},
+ qgo:function(){var t=$('#qi').value.trim();if(!t)return;var q=qparse(t);if(!q.s)return toast('কোন সার্ভিস বুঝতে পারিনি, সার্ভিসের নাম লিখুন');openE('job',q.s.id);$('#qi').value='';
+  setTimeout(function(){if(q.qty&&$('#qty')){$('#qty').value=q.qty;$('#qty').dispatchEvent(new Event('input',{bubbles:true}))}if(q.amt)$('#amt').value=q.amt;ACT.pay(q.pay);$('#nt').value=t},120)},
+ mic:function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast('এই ব্রাউজারে ভয়েস চলে না, Chrome ব্যবহার করুন');var rc=new SR();rc.lang='bn-IN';rc.onresult=function(e){$('#qi').value=e.results[0][0].transcript;ACT.qgo()};rc.onerror=function(){toast('ভয়েস ধরা যায়নি')};rc.start();toast('বলুন…')},
+ dv:function(){if(window.DTOK)return dBackup();if(!window.FB2)return toast('config.js পাওয়া যায়নি');FB2.in().catch(function(){toast('লগইন হয়নি')})},
+ dl2:function(){if(!window.DTOK){if(window.FB2)FB2.in().then(dRestore).catch(function(){toast('লগইন হয়নি')});return}dRestore()},
+ dr:function(id){drv(DAPI+'/'+id+'?alt=media').then(function(o){ACT.close();impT(JSON.stringify(o))}).catch(function(e){toast('ফাইল আনা যায়নি ('+e+')')})},
+ 
  si:function(){if(!window.FB2)return toast('Firebase লোড হয়নি');FB2.in().catch(function(){toast('লগইন হয়নি')})},so:function(){FB2.out()},
- ej:function(){dl('lura-hisab-backup-'+tod()+'.json',JSON.stringify({app:'lura-hisab',version:1,exported:now(),data:{entries:S.entries,hist:S.hist,week:S.week,rates:S.rates,svc:S.svc,cats:S.cats,lbl:S.lbl}},null,1));try{localStorage.setItem('lastBk',new Date().toLocaleString('en-IN'));localStorage.setItem('lastBkISO',now())}catch(e){}r();toast('ব্যাকআপ ডাউনলোড হয়েছে')},
+ ej:function(){dl('lura-hisab-backup-'+tod()+'.json',JSON.stringify(bkData(),null,1));try{localStorage.setItem('lastBk',new Date().toLocaleString('en-IN'));localStorage.setItem('lastBkISO',now())}catch(e){}r();toast('ব্যাকআপ ডাউনলোড হয়েছে')},
  ec:function(){var q=function(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'},R=[['তারিখ','ধরন','ক্যাটাগরি','টাকা','পেমেন্ট','নাম','নোট','অবস্থা'].map(q).join(',')];
   S.entries.slice().sort(function(a,b){return a.ts-b.ts}).forEach(function(x){R.push([new Date(x.ts).toLocaleString('en-IN'),{job:'কাজ',exp:'খরচ',home:S.lbl.own}[x.t],x.c,x.a,x.due?'বাকি':x.p=='upi'?'UPI':'ক্যাশ',x.nm,x.note,x.v?'বাতিল':'চালু'].map(q).join(','))});
   dl('lura-hisab-'+tod()+'.csv','\uFEFF'+R.join('\r\n'),'text/csv')},
@@ -268,9 +343,10 @@ document.addEventListener('input',function(ev){var e=ev.target;
  if(e.id=='qty'&&M&&M.rt){var q=parseFloat(e.value);$('#amt').value=q>0?q*M.rt:''}
  if(e.id=='act'){var c=calc(),v=parseFloat(e.value),d=$('#dif');d.innerHTML=isNaN(v)?'':v==c.dr?'<b class=inc>হিসাব ঠিক আছে</b>':v<c.dr?'<b class=exp>কম আছে '+fmt(c.dr-v)+'</b>':'<b class=own>বেশি আছে '+fmt(v-c.dr)+'</b>'}
  if(e.dataset&&e.dataset.r){S.rates[e.dataset.r]=parseFloat(e.value)||0;chM()}});
-document.addEventListener('change',function(ev){var e=ev.target,d=e.dataset||{},k=d.sn||d.sr;if(d.lb){S.lbl[d.lb]=e.value.trim()||S.lbl[d.lb];chM();toast('সেভ হয়েছে');return}
-if(d.cl){var A=e.value.split('\n').map(function(z){return z.trim()}).filter(Boolean);if(A.length){S.cats[d.cl]=A;chM();toast('সেভ হয়েছে')}return}if(!k)return;var s=S.svc.filter(function(x){return x.id==k})[0];if(!s)return;if(d.sn)s.n=e.value.trim()||s.n;else s.r=parseFloat(e.value)||0;svp(s);toast('সেভ হয়েছে')});
+document.addEventListener('change',function(ev){var e=ev.target,d=e.dataset||{},k=d.sn||d.sr||d.se;if(d.lb){S.lbl[d.lb]=e.value.trim()||S.lbl[d.lb];chM();toast('সেভ হয়েছে');return}
+if(d.cl){var A=e.value.split('\n').map(function(z){return z.trim()}).filter(Boolean);if(A.length){S.cats[d.cl]=A;chM();toast('সেভ হয়েছে')}return}if(d.dk){try{localStorage.setItem('dKeep',Math.max(1,parseInt(e.value)||10))}catch(x){}toast('সেভ হয়েছে');return}if(!k)return;var s=S.svc.filter(function(x){return x.id==k})[0];if(!s)return;if(d.sn)s.n=e.value.trim()||s.n;else if(d.se)s.e=e.value.trim();else s.r=parseFloat(e.value)||0;svp(s);toast('সেভ হয়েছে')});
 document.addEventListener('input',function(ev){if(ev.target.id=='sq'){window.SQ=ev.target.value;$('#jb').innerHTML=jgrid()}});
+document.addEventListener('input',function(ev){var e=ev.target;if(!e.dataset||!e.dataset.dn)return;var tot=0;document.querySelectorAll('[data-dn]').forEach(function(i){var n=+i.dataset.dn,v=parseFloat(i.value)||0,a=n==1?v:n*v;tot+=a;var t=document.getElementById('dt'+n);if(t)t.textContent=fmt(a)});$('#act').value=tot;difU()});
 load().then(function(){r()});if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 </script>
 <script type="module">
@@ -278,7 +354,7 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-app
 import{getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider,signOut}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 import{getFirestore,collection,doc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 if(window.FBCFG){const app=initializeApp(window.FBCFG),au=getAuth(app),fs=getFirestore(app);let un=[];
-window.FB2={in:()=>signInWithPopup(au,new GoogleAuthProvider()),out:()=>signOut(au),push:(c,r)=>setDoc(doc(fs,'shops','main',c,r.id),r)};
+window.FB2={in:()=>{const p=new GoogleAuthProvider();p.addScope('https://www.googleapis.com/auth/drive.file');return signInWithPopup(au,p).then(r=>{window.DTOK=GoogleAuthProvider.credentialFromResult(r).accessToken;window.dAuto&&window.dAuto()})},out:()=>signOut(au),push:(c,r)=>setDoc(doc(fs,'shops','main',c,r.id),r)};
 onAuthStateChanged(au,u=>{un.forEach(f=>f());un=[];window.fbAuth(u);if(u)['h_entries','h_meta','h_hist','h_svc'].forEach(c=>un.push(onSnapshot(collection(fs,'shops','main',c),sn=>window.fbSnap(c,sn.docs.map(d=>d.data())),e=>window.fbErr(e.code))))})}
 </script>
 </body>
