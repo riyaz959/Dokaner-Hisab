@@ -4,166 +4,86 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>লুরা ক্যাশ খাতা</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><link rel="icon" href="icon-192.png"><meta name="theme-color" content="#000000"><script src="config.js"></script>
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#eef1f5;--card:#fff;--tx:#10151c;--mut:#5b6573;--line:#dde2e9;--inc:#0f7a49;--exp:#c23a2b;--own:#1c5fc4;--ink:#10151c;--inkt:#fff}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1217;--card:#181e26;--tx:#eef1f5;--mut:#98a3b2;--line:#2a323d;--inc:#3fd08f;--exp:#ff7c6b;--own:#78adff;--ink:#eef1f5;--inkt:#0e1217}}
-:root[data-theme="dark"]{--bg:#0e1217;--card:#181e26;--tx:#eef1f5;--mut:#98a3b2;--line:#2a323d;--inc:#3fd08f;--exp:#ff7c6b;--own:#78adff;--ink:#eef1f5;--inkt:#0e1217}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+<style>:root{--bg:#f3f4fb;--card:#fff;--tx:#151a2d;--mut:#667085;--line:#e4e7f1;--inc:#059669;--exp:#dc2626;--own:#2563eb;--pri:#4f46e5;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1020;--card:#181b30;--tx:#eef0ff;--mut:#9aa3c4;--line:#2a2f4d;--inc:#34d399;--exp:#f87171;--own:#60a5fa;--pri:#818cf8}}
+:root[data-theme="dark"]{--bg:#0e1020;--card:#181b30;--tx:#eef0ff;--mut:#9aa3c4;--line:#2a2f4d;--inc:#34d399;--exp:#f87171;--own:#60a5fa;--pri:#818cf8}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 "Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:84px}
-main{max-width:520px;margin:0 auto;padding:14px}
-h2{font-size:20px;margin:6px 0 12px}
-h3{margin:0 0 12px;font-size:18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.mut{color:var(--mut);font-size:13px}
-.inc{color:var(--inc)}.exp{color:var(--exp)}.own{color:var(--own)}
-.big{font-size:40px;font-weight:700;letter-spacing:-.5px;line-height:1.1}
-.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:12px 0 8px;background:var(--line)}
-.bar i{display:block;height:100%}
-.leg{display:flex;justify-content:space-between;font-size:14px;gap:8px}
-.leg b{display:block;font-size:18px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.g2 .card{margin:0;padding:12px}
-.g2 b{font-size:20px;display:block}
-.jobs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 "Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif;padding-bottom:110px;-webkit-tap-highlight-color:transparent}
+main{max-width:560px;margin:0 auto;padding:14px}
+h2{font-size:20px;margin:4px 0 12px}h3{margin:0 0 12px;font-size:18px}
 button{font:inherit;color:inherit;cursor:pointer}
-.jb{min-height:62px;border:1px solid var(--line);background:var(--card);border-radius:12px;font-weight:600;font-size:14px;padding:6px 2px}
-.jb:active{background:var(--line)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.big2{min-height:54px;border-radius:12px;border:2px solid;background:var(--card);font-weight:700}
-.pri{width:100%;min-height:52px;border:0;border-radius:12px;background:var(--ink);color:var(--inkt);font-weight:700;margin-top:10px}
-.sec{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:8px}
-input,select,textarea{width:100%;min-height:48px;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:4px 0 10px}
+input,select,textarea{width:100%;min-height:48px;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:4px 0 10px}
+textarea{min-height:110px;font-size:14px}
 label{display:block;font-size:13px;color:var(--mut)}
-textarea{min-height:120px;font-size:14px}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0 12px}
-.seg button{min-height:44px;border:1px solid var(--line);background:var(--bg);border-radius:10px}
-.seg button.on{background:var(--ink);color:var(--inkt);border-color:var(--ink)}
-.row{display:flex;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line)}
-.row:last-child{border:0}
-.row.vd{opacity:.45;text-decoration:line-through}
-.d{width:10px;height:36px;border-radius:5px;flex:none}
-.d.inc{background:var(--inc)}.d.exp{background:var(--exp)}.d.own{background:var(--own)}
-.rm{flex:1;min-width:0}.rm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rm small{color:var(--mut)}
+hr{border:0;border-top:1px solid var(--line);margin:8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.mut{color:var(--mut);font-size:13px}.inc{color:var(--inc)}.exp{color:var(--exp)}.own{color:var(--own)}
+.sl{font-size:14px;color:var(--mut);margin:6px 2px 8px;font-weight:600}
+.empty{text-align:center;color:var(--mut);padding:22px 8px}
+.hd{display:flex;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(135deg,#4338ca,#7c3aed 60%,#db2777);color:#fff;position:sticky;top:0;z-index:6}
+.lg{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.55)}
+.hd b{font-size:16px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb{min-width:42px;min-height:42px;border:0;border-radius:13px;background:rgba(255,255,255,.22);color:#fff;font-size:17px;padding:0 10px}
+.hero{background:linear-gradient(135deg,#312e81,#6d28d9 55%,#be185d);color:#fff;border-radius:24px;padding:18px;margin-bottom:12px;box-shadow:0 14px 30px rgba(109,40,217,.28)}
+.hl{display:flex;justify-content:space-between;font-size:13px;opacity:.85}
+.big{font-size:42px;font-weight:800;letter-spacing:-1px;line-height:1.1;margin:4px 0 2px}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,.2);margin:12px 0 8px}.bar i{display:block;height:100%}
+.leg{display:flex;justify-content:space-between;font-size:13px}.leg b{display:block;font-size:17px}.leg span:last-child{text-align:right;color:#ffe08a}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.22)}.mini i{display:block;font-style:normal;font-size:11px;opacity:.8}.mini b{font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.big2{min-height:54px;border:0;border-radius:16px;color:#fff;font-weight:700;font-size:15px}.bx{background:#e11d48}.bo{background:#2563eb}
+.jobs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:10px 0}
+.jb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:94px;padding:8px 4px;border-radius:18px;text-align:center;font-size:13px;font-weight:600;line-height:1.2;background:hsl(var(--h,40) 100% 95%);border:1.5px solid hsl(var(--h,40) 80% 80%);color:#1b1b2f;transition:transform .1s}
+.jb:active{transform:scale(.95)}.jb small{font-size:11px;font-weight:500;color:hsl(var(--h,40) 55% 30%)}
+.ic{font-size:26px;line-height:1;width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:hsl(var(--h,40) 95% 88%)}
+.tw{width:1em;height:1em;vertical-align:-.12em}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .jb{background:hsl(var(--h,40) 38% 21%);border-color:hsl(var(--h,40) 45% 38%);color:#f3f3fb}:root:not([data-theme="light"]) .jb small{color:hsl(var(--h,40) 60% 82%)}:root:not([data-theme="light"]) .ic{background:hsl(var(--h,40) 40% 30%)}}
+:root[data-theme="dark"] .jb{background:hsl(var(--h,40) 38% 21%);border-color:hsl(var(--h,40) 45% 38%);color:#f3f3fb}:root[data-theme="dark"] .jb small{color:hsl(var(--h,40) 60% 82%)}:root[data-theme="dark"] .ic{background:hsl(var(--h,40) 40% 30%)}
+.pri{width:100%;min-height:52px;border:0;border-radius:14px;background:linear-gradient(135deg,#4f46e5,#9333ea);color:#fff;font-weight:700;margin-top:8px}
+.sec{width:100%;min-height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:8px}
+.sec.sm{width:auto;flex:0 0 auto;margin:0;min-height:44px;padding:0 11px;min-width:44px;font-size:13px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0 12px}.seg button{min-height:44px;border:1px solid var(--line);background:var(--bg);border-radius:12px}.seg button.on,.chips button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.chips{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}.chips button{flex:none;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:19px;background:var(--card)}
+.row{display:flex;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line)}.row:last-child{border:0}.row.vd{opacity:.45;text-decoration:line-through}
+.d{width:8px;height:34px;border-radius:4px;flex:none}.d.inc{background:var(--inc)}.d.exp{background:var(--exp)}.d.own{background:var(--own)}
+.rm{flex:1;min-width:0}.rm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rm small{color:var(--mut)}
 .ra{text-align:right}.ra em{display:block;font-style:normal;font-size:12px;color:var(--mut)}
-.chips{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}
-.chips button{flex:none;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:19px;background:var(--card)}
-.chips button.on{background:var(--ink);color:var(--inkt);border-color:var(--ink)}
 .ln{display:flex;justify-content:space-between;padding:6px 0}
-hr{border:0;border-top:1px solid var(--line);margin:6px 0}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
-nav button{flex:1;min-height:60px;border:0;background:none;font-size:13px;color:var(--mut)}
-nav button.on{color:var(--tx);font-weight:700;box-shadow:inset 0 3px 0 var(--ink)}
-#sh{display:none;position:fixed;inset:0;z-index:9}
-.bk{position:absolute;inset:0;background:rgba(0,0,0,.5)}
-.pn{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;background:var(--card);border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto}
-#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--ink);color:var(--inkt);padding:10px 16px;border-radius:10px;z-index:20;display:none}
-.empty{text-align:center;color:var(--mut);padding:24px 8px}
-.card{border-radius:16px}
-.top{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 14px}
-.top small{color:var(--mut);display:block}
-.top h1{margin:0;font-size:24px;letter-spacing:-.3px}
-.wk{font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 10px;color:var(--mut)}
-.hero{background:linear-gradient(145deg,#050505,#1f1a08 65%,#3d3009);color:#f6e7b0;border:1px solid #c9a227;border-radius:22px;padding:20px;box-shadow:0 10px 24px rgba(201,162,39,.25)}
-.hero .mut{color:rgba(255,255,255,.8)}
-.hero .bar{background:rgba(255,255,255,.22);height:14px;border-radius:7px}
-.hero .own{color:#ffd166}
-.hero .big{font-size:46px}
-.sl{font-size:14px;color:var(--mut);margin:4px 2px 8px;font-weight:600}
-.jb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:80px;border-radius:16px;transition:transform .1s}
-.jb:active{transform:scale(.95)}
-.ic{font-size:24px;line-height:1;width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:var(--bg)}
-.big2{border-radius:16px;border:0;color:#fff;min-height:56px;font-size:16px;transition:transform .1s}
-.big2:active{transform:scale(.97)}
-.bx{background:#d64533}.bo{background:#1c5fc4}
-nav{border-radius:22px 22px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.1)}
-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-nav button.on{box-shadow:none}
-.ni{font-size:20px;line-height:1;padding:3px 16px;border-radius:14px}
-nav button.on .ni{background:var(--bg)}
-.brand{display:flex;align-items:center;gap:10px}.lg{width:48px;height:48px;border-radius:50%;border:1px solid #c9a227}
-.pn{animation:up .22s ease-out}
-@keyframes up{from{transform:translateY(40px);opacity:.4}}
-@media(prefers-reduced-motion:reduce){.pn{animation:none}}
-.jb{font-size:13px;text-align:center;line-height:1.2}.jb small{display:block;font-size:11px;color:var(--mut);font-weight:400}
-.sv{display:grid;grid-template-columns:1fr 78px 62px 44px;gap:6px;align-items:center}.sv input{margin:2px 0;min-width:0}
-.sec.sm{margin:0;min-height:44px;padding:0 2px;font-size:13px;width:100%}
-.dash{display:block}
-body{background:radial-gradient(900px 420px at 50% -8%,rgba(201,162,39,.16),transparent),var(--bg)}
-.card{box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 22px rgba(0,0,0,.05)}
-.pri{background:linear-gradient(135deg,#ecc94b,#b8901a);color:#1a1405}
-.ic{background:rgba(201,162,39,.18)}
-.jb{border-color:rgba(201,162,39,.4)}
-.jb:active{background:rgba(201,162,39,.22)}
-.chips button.on,.seg button.on{background:#c9a227;border-color:#c9a227;color:#1a1405}
-nav button.on .ni{background:rgba(201,162,39,.25)}
-.top h1{background:linear-gradient(90deg,#b8901a,#e9c64f);-webkit-background-clip:text;background-clip:text;color:transparent}
-.wk{border-color:rgba(201,162,39,.45)}
-@media(min-width:900px){
-body{padding-bottom:0;padding-top:60px}
-main{max-width:760px;padding:22px 28px}main.wide{max-width:1240px}
-nav{top:0;bottom:auto;border-radius:0;border-top:0;border-bottom:1px solid var(--line);justify-content:center;gap:6px;box-shadow:none}
-nav button{flex:none;flex-direction:row;gap:8px;min-height:56px;padding:0 24px;font-size:15px}
-nav button.on{box-shadow:inset 0 -3px 0 var(--ink)}
-.dash{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);gap:22px;align-items:start}
-.jobs{grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
-.pn{top:50%;bottom:auto;transform:translateY(-50%);border-radius:18px;max-width:480px;animation:none;max-height:86%}
-}
-body{background:linear-gradient(180deg,#eef2ff 0,#fdf2f8 45%,#fff7ed 100%) fixed}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background:linear-gradient(180deg,#0f1020,#150f1f 60%,#14100d) fixed}}
-.hero{background:linear-gradient(135deg,#4338ca,#7c3aed 55%,#db2777);color:#fff;border:0;box-shadow:0 12px 28px rgba(124,58,237,.35)}
-.hero .mut{color:rgba(255,255,255,.85)}.hero .own{color:#ffe08a}
-.top h1{background:linear-gradient(90deg,#4f46e5,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent}
-.wk{border-color:#c7d2fe}
-.pri{background:linear-gradient(135deg,#06b6d4,#4f46e5);color:#fff}
-.chips button.on,.seg button.on{background:#4f46e5;border-color:#4f46e5;color:#fff}
-nav button.on{color:#4f46e5}nav button.on .ni{background:#e0e7ff}
-.g2 .card:nth-child(1){border-left:5px solid #10b981}.g2 .card:nth-child(2){border-left:5px solid #ef4444}.g2 .card:nth-child(3){border-left:5px solid #0ea5e9}.g2 .card:nth-child(4){border-left:5px solid #f59e0b}
-.jb{background:hsl(var(--h,40) 100% 95%);border:1.5px solid hsl(var(--h,40) 85% 74%);color:#1b1b2f;box-shadow:0 2px 6px hsl(var(--h,40) 70% 60%/.18)}
-.jb .ic{background:hsl(var(--h,40) 95% 86%)}.jb small{color:hsl(var(--h,40) 55% 28%)}
-.jb:active{background:hsl(var(--h,40) 95% 88%)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .jb{background:hsl(var(--h,40) 38% 21%);border-color:hsl(var(--h,40) 45% 40%);color:#f3f3fb}:root:not([data-theme="light"]) .jb .ic{background:hsl(var(--h,40) 40% 30%)}:root:not([data-theme="light"]) .jb small{color:hsl(var(--h,40) 60% 80%)}:root:not([data-theme="light"]) nav button.on .ni{background:#312e81}}
+.ac{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
+.ac summary{padding:15px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between}.ac summary::-webkit-details-marker{display:none}.ac summary::after{content:"⌄";opacity:.55}.ac[open] summary::after{content:"⌃"}
+.acb{padding:0 16px 14px}.acb .card{border:0;padding:0;margin:0 0 10px;background:none}.acb .card>b:first-child{display:none}
+.sv{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;border-bottom:1px solid var(--line);align-items:center}.sv input{margin:2px 0;min-width:0}
+.dn .dr{display:grid;grid-template-columns:56px 1fr 84px;gap:8px;align-items:center}.dn .dr b{text-align:right}.dn input{margin:2px 0}
 .qe{display:flex;gap:8px;margin:0 0 10px}.qe input{margin:0;flex:1;min-width:0}
 .mic,.qb{min-height:48px;border:0;border-radius:12px;padding:0 16px;font-weight:700;color:#fff}.mic{background:#ec4899}.qb{background:#4f46e5}
-.dn .dr{display:grid;grid-template-columns:56px 1fr 84px;gap:8px;align-items:center}.dn .dr b{text-align:right}.dn input{margin:2px 0}
-.sv{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;border-bottom:1px solid var(--line);align-items:center}
-.sec.sm{width:auto;flex:0 0 auto;padding:0 11px;min-width:44px}
-@media(min-width:900px){
-.dash{grid-template-columns:minmax(0,2.4fr) minmax(270px,1fr)}
-.jobs{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-.jb{min-height:98px;font-size:15px}.jb .ic{width:46px;height:46px;font-size:26px}
-.g2{grid-template-columns:repeat(4,1fr)}.g2 b{font-size:18px}
-.hero{padding:16px 20px}.hero .big{font-size:36px}
-.dash>div:last-child .row{padding:6px 2px}.dash>div:last-child .rm b{font-size:13px}.dash>div:last-child .rm small{font-size:11px}
-}
-.hd{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#4f46e5,#9333ea 60%,#d946ef);color:#fff;position:sticky;top:0;z-index:6}
-.hd .lg{width:42px;height:42px;margin:0;border:2px solid rgba(255,255,255,.55)}
-.hd b{font-size:17px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hb{min-width:44px;min-height:44px;border:0;border-radius:14px;background:rgba(255,255,255,.22);color:#fff;font-size:17px;padding:0 12px}
-nav .nb,nav .nc{display:none}
-nav button.on{background:linear-gradient(135deg,#4f46e5,#c026d3);color:#fff;border-radius:16px;margin:6px 4px;min-height:54px;box-shadow:0 6px 14px rgba(124,58,237,.35)}
-nav button.on .ni{background:none}
-.wk2{font-size:13px;color:var(--mut);margin:0 2px 10px}
-.tw{width:1em;height:1em;vertical-align:-.12em}
 .chat .m{padding:8px 12px;border-radius:14px;margin:6px 0;max-width:92%;white-space:pre-wrap}.chat .m.u{background:#e0e7ff;color:#1b1b2f;margin-left:auto}.chat .m.a{background:var(--bg)}
-:root[data-theme="dark"] body{background:linear-gradient(180deg,#0f1020,#150f1f 60%,#14100d) fixed}
-:root[data-theme="dark"] .jb{background:hsl(var(--h,40) 38% 21%);border-color:hsl(var(--h,40) 45% 40%);color:#f3f3fb}
-:root[data-theme="dark"] .jb .ic{background:hsl(var(--h,40) 40% 30%)}:root[data-theme="dark"] .jb small{color:hsl(var(--h,40) 60% 80%)}
-:root[data-theme="light"] body{background:linear-gradient(180deg,#eef2ff 0,#fdf2f8 45%,#fff7ed 100%) fixed}
+nav{display:flex;position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5;border-radius:22px 22px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.08)}
+nav button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:12px;color:var(--mut);border-radius:14px}
+nav button.on{color:var(--pri);font-weight:700}nav button.on .ni{background:rgba(79,70,229,.15)}
+.ni{font-size:20px;padding:2px 14px;border-radius:12px;line-height:1.2}.sp{flex:0 0 78px}nav .nb,nav .nc{display:none}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(30px + env(safe-area-inset-bottom,0px));width:66px;height:66px;border-radius:50%;border:4px solid var(--bg);background:linear-gradient(135deg,#ec4899,#7c3aed);color:#fff;font-size:26px;z-index:7;box-shadow:0 10px 24px rgba(236,72,153,.45)}
+.fab.rec{background:#e11d48;animation:pulse 1s infinite}@keyframes pulse{50%{box-shadow:0 0 0 14px rgba(225,29,72,.18)}}
+#sh{display:none;position:fixed;inset:0;z-index:9}.bk{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.pn{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;background:var(--card);border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}@media(prefers-reduced-motion:reduce){.pn,.fab.rec{animation:none}}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:112px;background:#151a2d;color:#fff;padding:10px 16px;border-radius:12px;z-index:20;display:none;max-width:90%;text-align:center}
 @media(min-width:900px){
+body{padding-bottom:24px;padding-top:64px}
+main{max-width:820px;padding:22px 28px}main.wide{max-width:1280px}
 .hd{display:none}
-nav{justify-content:flex-start}nav .nb,nav .nc{display:flex;align-items:center;gap:10px}nav .nb{padding-left:8px;margin-right:auto}nav .nc{margin-left:auto}nav .hb{background:#eef2ff;color:#312e81}
-nav .nb b{font-size:16px}
-.dash{grid-template-columns:minmax(0,1fr) 290px;grid-template-areas:"a c" "b c"}
-.dash>div:nth-child(1){grid-area:a}.dash>div:nth-child(2){grid-area:b}.dash>div:nth-child(3){grid-area:c}
+nav{top:0;bottom:auto;border-radius:0;border-top:0;border-bottom:1px solid var(--line);box-shadow:none;padding:6px 18px;align-items:center;gap:6px}
+nav .nb,nav .nc{display:flex;align-items:center;gap:10px}nav .nb{margin-right:auto}nav .nc{margin-left:auto}
+nav button{flex:none;flex-direction:row;gap:8px;padding:8px 18px;font-size:15px}nav .sp{display:none}nav .hb{background:var(--bg);color:var(--tx)}.ni{padding:0!important;background:none!important}
+.fab{left:auto;right:28px;transform:none;bottom:28px}#toast{bottom:30px}
+.dash{display:grid;grid-template-columns:minmax(0,1fr) 300px;grid-template-areas:"a c" "b c";gap:18px;align-items:start}
+.colA{grid-area:a}.colB{grid-area:b}.colC{grid-area:c}
+.jobs{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.jb{min-height:100px;font-size:14px}.colC .row{padding:7px 2px}
+.pn{top:50%;bottom:auto;transform:translateY(-50%);border-radius:20px;max-width:480px;animation:none;max-height:86%}
 }
 @media(min-width:1180px){
-main.wide{max-width:none;padding:14px 22px}
-.dash{grid-template-columns:300px minmax(0,1fr) 300px;grid-template-areas:"a b c";height:calc(100vh - 100px);min-height:460px}
-.dash>div{overflow:auto;min-height:0;padding:2px 4px 8px 2px}
-.dash>div:nth-child(1) .g2{grid-template-columns:1fr 1fr}
+main.wide{padding:16px 24px}
+.dash{grid-template-columns:320px minmax(0,1fr) 300px;grid-template-areas:"a b c";height:calc(100vh - 110px);min-height:480px}
+.dash>div{overflow:auto;min-height:0;padding:2px 6px 10px 2px}
 }
 </style>
 </head>
@@ -171,7 +91,7 @@ main.wide{max-width:none;padding:14px 22px}
 <div id=hd></div><main id="v"></main>
 <nav id="nv"></nav>
 <div id="sh"></div>
-<div id="toast"></div>
+<div id="toast"></div><button id=fab class=fab data-a=vrec>🎤</button>
 <script>
 var K='cafe_v1',S,M,armed=0,filt='all',tab='home',saveOk=true;
 var J=[['print','প্রিন্ট',2,1],['copy','ফটোকপি',1,1],['form','অনলাইন ফর্ম',50,0],['photo','ফটো',30,0],['type','টাইপিং',20,1],['scan','স্ক্যান',10,1],['rech','রিচার্জ',0,0],['oth','অন্যান্য',0,0]];
@@ -228,7 +148,7 @@ function doAct(a){var t=a.type,s,x;try{
   if(a.amount)x.a=+a.amount;if(a.name!=null)x.nm=a.name;if(a.note!=null)x.note=a.note;ch(x);return '✅ এডিট: '+x.c+' '+fmt(x.a)}
  if(t=='backup_now'){if(window.DTOK)dBackup();else ACT.ej();return '💾 ব্যাকআপ নিচ্ছি'}
  return '⚠️ অজানা আদেশ'}catch(e){return '⚠️ '+e}}
-var AIH=[],SYS='You control a Bengali cash-ledger app of a cyber cafe. Reply ONLY with JSON: {"reply":"short Bengali reply","actions":[...]}. Action objects have a "type": add_entry{kind:job|exp|home,service,amount,qty,pay:cash|upi|due,name,note,category}; add_service{name,english,rate,per_unit}; edit_service{name,new_name,english,rate,per_unit}; delete_service{name}; move_service{name,to:top|up|down}; set_open{amount}; add_category{kind:exp|home,name}; set_label{key:shop|own|ownS,value}; void_last{}; edit_last{amount,name,note}; backup_now{}. Use service names from the context. For questions only, answer from the context in "reply" with empty actions. If unclear, ask in "reply" with empty actions. Numbers may be Bengali digits or Bengali words.';
+var AIH=[],SYS='You control a Bengali cash-ledger app of a cyber cafe. Reply ONLY with JSON: {"heard":"exact transcript if the user sent audio, else empty","reply":"short Bengali reply","actions":[...]}. Examples: "প্রিন্ট বিশ পাতা রহিম UPI" -> add_entry{kind:job,service:প্রিন্ট,qty:20,pay:upi,name:রহিম}; "চা নাস্তা চল্লিশ টাকা খরচ" -> add_entry{kind:exp,category:চা-নাস্তা,amount:40}; "পিভিসি কার্ড সার্ভিস যোগ করো পঞ্চাশ টাকা" -> add_service{name:পিভিসি কার্ড,english:PVC Card,rate:50}. Never invent amounts; if the amount is missing and the service has no rate, ask in reply with empty actions. Action objects have a "type": add_entry{kind:job|exp|home,service,amount,qty,pay:cash|upi|due,name,note,category}; add_service{name,english,rate,per_unit}; edit_service{name,new_name,english,rate,per_unit}; delete_service{name}; move_service{name,to:top|up|down}; set_open{amount}; add_category{kind:exp|home,name}; set_label{key:shop|own|ownS,value}; void_last{}; edit_last{amount,name,note}; backup_now{}. Use service names from the context. For questions only, answer from the context in "reply" with empty actions. If unclear, ask in "reply" with empty actions. Numbers may be Bengali digits or Bengali words.';
 var aiModel=function(){var m='';try{m=localStorage.getItem('aiModel')}catch(e){}return m||'gemini-2.5-flash'};
 function ctxJ(){var c=calc();return JSON.stringify({today:new Date().toLocaleDateString('en-IN'),services:SV().map(function(s){return{n:s.n,e:s.e,rate:s.r,per_unit:!!s.u}}),exp_cats:S.cats.exp,home_cats:S.cats.home,labels:S.lbl,week_open:S.week.open,drawer:c.dr,today_income:c.td,week_expense:c.ex,owner_money:c.hm,pending_due:c.du,recent:S.entries.filter(function(e){return!e.v}).sort(function(a,b){return b.ts-a.ts}).slice(0,8).map(function(e){return{type:e.t,cat:e.c,amt:e.a,name:e.nm}})})}
 async function aiSend(t){AIH.push({r:'u',t:t},{r:'a',t:'…'});r(1);var out='';
@@ -241,10 +161,34 @@ async function aiSend(t){AIH.push({r:'u',t:t},{r:'a',t:'…'});r(1);var out='';
 function vAi(){return '<h2>🤖 সহকারী</h2><p class=mut>বাংলায় লিখুন বা বলুন। যেমন: “পিভিসি কার্ড সার্ভিস যোগ করো রেট ৫০”, “প্রিন্ট ২০ পাতা রহিম UPI”, “প্রিন্টের রেট ৩ করো”, “ফটো সবার উপরে তোলো”, “আজ কত আয় হলো?”</p><div class="card chat" id=chat style="max-height:46vh;overflow:auto">'+(AIH.length?AIH.map(function(m){return '<div class="m '+m.r+'">'+esc(m.t)+'</div>'}).join(''):'<div class=empty>এখনো কিছু বলেননি</div>')+'</div><div class=qe><input id=ai placeholder="সহকারীকে বলুন…"><button class=mic data-a=mic2>🎤</button><button class=qb data-a=aigo>পাঠান</button></div>'+(window.AIRUN?'':'<p class=mut>পূর্ণ AI এখনো বন্ধ (config.js বা AI Logic নেই)। সাধারণ আদেশ চলবে।</p>')}
 function aiBox(){return '<div class=card><b>🤖 AI সহকারী</b><p class=mut>Firebase Console → AI Logic → Gemini Developer API চালু করলে সহকারী সব আদেশ বুঝবে। সার্ভিস, রেট, ক্রম, এন্ট্রি, নাম সবই বলে বদলাতে পারবেন। কাজ না করলে নিচের মডেলের নাম বদলান।</p><label>মডেলের নাম<input data-ai=1 value="'+esc(aiModel())+'"></label></div>'}
 function hdr(){return '<div class=hd><img class=lg src=icon-192.png alt=""><b>'+esc(S.lbl.shop)+'</b>'+ctl()+'</div>'}
-function ctl(){return '<button class=hb data-a=th>🌓</button><button class=hb data-a=tab data-v=cfg>'+(FBU?(/^⚠/.test(lastSync)?'☁️⚠️':'☁️✓'):(window.FB2?'☁️✕':'📴'))+'</button>'}
+function ctl(){return '<button class=hb data-a=tab data-v=ai>🤖</button><button class=hb data-a=th>🌓</button><button class=hb data-a=tab data-v=cfg>'+(FBU?(/^⚠/.test(lastSync)?'☁️⚠️':'☁️✓'):(window.FB2?'☁️✕':'📴'))+'</button>'}
 function nbr(){return '<div class=nb><img class=lg src=icon-192.png alt="" style="width:36px;height:36px"><b>'+esc(S.lbl.shop)+'</b></div>'}
 function nct(){return '<div class=nc>'+ctl()+'</div>'}
-function listen(id,cb){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast('এই ব্রাউজারে ভয়েস চলে না, Chrome ব্যবহার করুন');var rc=new SR();rc.lang='bn-IN';rc.interimResults=true;var fin='';rc.onresult=function(e){var t='';for(var i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;$('#'+id).value=t;fin=t};rc.onerror=function(e){toast(e.error=='not-allowed'?'মাইকের অনুমতি দিন (ঠিকানার বারের পাশের আইকন)':'ভয়েস ধরা যায়নি, আবার চেষ্টা করুন')};rc.onend=function(){if(fin)cb(fin)};rc.start();toast('বলুন… 🎤')}
+function listen(id,cb){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast('এই ব্রাউজারে ভয়েস চলে না, Chrome ব্যবহার করুন');var rc=new SR();rc.lang='bn-IN';rc.interimResults=true;var fin='';rc.onresult=function(e){var t='';for(var i=0;i<e.results.length;i++)t+=e.results[i][0].transcript;if(id)$('#'+id).value=t;fin=t};rc.onerror=function(e){toast(e.error=='not-allowed'?'মাইকের অনুমতি দিন (ঠিকানার বারের পাশের আইকন)':'ভয়েস ধরা যায়নি, আবার চেষ্টা করুন')};rc.onend=function(){if(fin)cb(fin)};rc.start();toast('বলুন… 🎤')}
+var OPEN={svc:1},REC=null,PEND=null;
+function acc(k,ti,h){return '<details class=ac data-k='+k+(OPEN[k]?' open':'')+'><summary>'+ti+'</summary><div class=acb>'+h+'</div></details>'}
+document.addEventListener('toggle',function(ev){var d=ev.target;if(d.classList&&d.classList.contains('ac'))OPEN[d.dataset.k]=d.open},true);
+function fabUI(){var f=$('#fab');if(!f)return;f.className='fab'+(REC?' rec':'');f.textContent=REC?'⏹':'🎤'}
+function clean(raw){return raw.replace(/^\s*```(?:json)?|```\s*$/g,'').trim()}
+async function toWav(blob){var ab=await blob.arrayBuffer(),AC=window.AudioContext||window.webkitAudioContext,ac=new AC(),buf=await ac.decodeAudioData(ab);ac.close&&ac.close();
+ var oc=new OfflineAudioContext(1,Math.max(1,Math.ceil(buf.duration*16000)),16000),src=oc.createBufferSource();src.buffer=buf;src.connect(oc.destination);src.start();
+ var d=(await oc.startRendering()).getChannelData(0),o=new DataView(new ArrayBuffer(44+d.length*2)),w=function(p,s){for(var i=0;i<s.length;i++)o.setUint8(p+i,s.charCodeAt(i))};
+ w(0,'RIFF');o.setUint32(4,36+d.length*2,true);w(8,'WAVEfmt ');o.setUint32(16,16,true);o.setUint16(20,1,true);o.setUint16(22,1,true);o.setUint32(24,16000,true);o.setUint32(28,32000,true);o.setUint16(32,2,true);o.setUint16(34,16,true);w(36,'data');o.setUint32(40,d.length*2,true);
+ for(var i=0;i<d.length;i++){var v=Math.max(-1,Math.min(1,d[i]));o.setInt16(44+i*2,v<0?v*32768:v*32767,true)}return new Uint8Array(o.buffer)}
+function b64(u){var s='',c=8192;for(var i=0;i<u.length;i+=c)s+=String.fromCharCode.apply(null,u.subarray(i,i+c));return btoa(s)}
+async function vStart(){var st;try{st=await navigator.mediaDevices.getUserMedia({audio:true})}catch(e){return toast('মাইকের অনুমতি দিন (ঠিকানার বারের পাশের আইকন)')}
+ var ch=[],mr=new MediaRecorder(st);mr.ondataavailable=function(e){if(e.data.size)ch.push(e.data)};
+ mr.onstop=function(){st.getTracks().forEach(function(t){t.stop()});REC=null;fabUI();if(ch.length)vProcess(new Blob(ch,{type:mr.mimeType}))};
+ mr.start();REC=mr;fabUI();toast('বলুন… শেষ হলে ⏹ চাপুন');setTimeout(function(){if(REC===mr)vStop()},25000)}
+function vStop(){if(REC&&REC.state!='inactive')REC.stop()}
+async function vProcess(blob){toast('বুঝছি… ⏳');
+ try{var wav=await toWav(blob),raw=await window.AIRUN(aiModel(),SYS,[ctxJ()+'\n\nThe user sent a Bengali VOICE message (audio). Transcribe it exactly into "heard", then decide the actions.',{inlineData:{mimeType:'audio/wav',data:b64(wav)}}]);
+  var j=JSON.parse(clean(raw));PEND={heard:j.heard||'',reply:j.reply||'',acts:j.actions||[]};showPend()}
+ catch(e){toast('ভয়েস বোঝা যায়নি ('+(e.message||e)+')')}}
+function descA(a){var t=a.type;if(t=='add_entry')return(a.kind=='exp'?'খরচ: ':a.kind=='home'?S.lbl.own+': ':'এন্ট্রি: ')+(a.service||a.category||'')+(a.qty?' × '+a.qty:'')+(a.amount?' = '+fmt(+a.amount):'')+(a.pay&&a.pay!='cash'?' ('+a.pay+')':'')+(a.name?' · '+a.name:'');
+ if(t=='add_service')return 'নতুন সার্ভিস: '+a.name+(a.rate?' ('+fmt(+a.rate)+')':'');if(t=='edit_service')return 'সার্ভিস বদল: '+a.name+(a.new_name?' → '+a.new_name:'')+(a.rate!=null?' রেট '+fmt(+a.rate):'');
+ if(t=='delete_service')return '🗑️ মুছবো: '+a.name;if(t=='move_service')return 'সরাবো: '+a.name+' ('+a.to+')';if(t=='set_open')return 'বরাদ্দ: '+fmt(+a.amount);if(t=='void_last')return '🗑️ শেষ এন্ট্রি বাতিল';if(t=='edit_last')return 'শেষ এন্ট্রি এডিট';return t}
+function showPend(){var P=PEND;sheet('<h3>🎙️ শুনেছি</h3><p>“'+esc(P.heard||'…')+'”</p>'+(P.reply?'<p class=mut>'+esc(P.reply)+'</p>':'')+(P.acts.length?'<div class=card>'+P.acts.map(function(a){return '<div class=ln><span>'+esc(descA(a))+'</span></div>'}).join('')+'</div><button class=pri data-a=pok>✅ ঠিক আছে, করো</button>':'')+'<button class=sec data-a=close>'+(P.acts.length?'✖ বাতিল':'বন্ধ করুন')+'</button>')}
 function difU(){var c=calc(),v=parseFloat($('#act').value),d=$('#dif');d.innerHTML=isNaN(v)?'':v==c.dr?'<b class=inc>হিসাব ঠিক আছে</b>':v<c.dr?'<b class=exp>কম আছে '+fmt(c.dr-v)+'</b>':'<b class=own>বেশি আছে '+fmt(v-c.dr)+'</b>'}
 var dst='';
 var DK=function(){var v=0;try{v=+localStorage.getItem('dKeep')}catch(e){}return v>0?v:10};
@@ -324,12 +268,11 @@ function svcCard(){return '<div class=card><b>সার্ভিস ও রে�
  +SV().map(function(s){var v=' data-v='+s.id;return '<div class=sv><input data-sn='+s.id+' value="'+esc(s.n)+'" style="flex:1 1 130px"><input data-se='+s.id+' placeholder="English" value="'+esc(s.e||'')+'" style="flex:1 1 100px"><input data-sr='+s.id+' type=number inputmode=decimal placeholder="হাতে" value="'+(s.r||'')+'" style="flex:0 0 76px"><button class="sec sm" data-a=su'+v+'>'+(s.u?'পাতা':'ফ্ল্যাট')+'</button><button class="sec sm" data-a=sm data-v="'+s.id+'|top">⤒</button><button class="sec sm" data-a=sm data-v="'+s.id+'|-1">⬆</button><button class="sec sm" data-a=sm data-v="'+s.id+'|1">⬇</button><button class="sec sm" data-a=sd'+v+'>🗑️</button></div>'}).join('')
  +'<hr><b>নতুন সার্ভিস যোগ করুন</b><input id=nn placeholder="সার্ভিসের নাম (বাংলা)"><input id=ne placeholder="English name (সার্চের জন্য)"><input id=nr type=number inputmode=decimal placeholder="রেট (ফাঁকা = হাতে লিখব)"><label><input type=checkbox id=nu style="width:auto;min-height:0;margin-right:8px">প্রতি পাতা/কপি হিসাবে রেট</label><button class=pri data-a=sa>+ সার্ভিস যোগ করুন</button></div>'}
 function vHome(){var c=calc(),tot=Math.max(c.dr,1),mp=Math.max(0,c.mine)/tot*100,op=Math.max(0,c.hm)/tot*100,td=new Date().toDateString(),rc=S.entries.filter(function(x){return!x.v&&new Date(x.ts).toDateString()==td}).sort(function(a,b){return b.ts-a.ts}).slice(0,15);
- return bkWarn()+'<div class=wk2>সপ্তাহ: '+dt(S.week.start)+' থেকে</div>'
- +'<div class=dash><div><div class="card hero"><div class=mut>ড্রয়ারে মোট ক্যাশ</div><div class=big>'+fmt(c.dr)+'</div><div class=bar><i style="width:'+mp+'%;background:#fff"></i><i style="width:'+op+'%;background:#ffd166"></i></div><div class=leg><span>আপনার অংশ<b>'+fmt(c.mine)+'</b></span><span class=own style="text-align:right">'+esc(S.lbl.ownS)+'<b>'+fmt(c.hm)+'</b></span></div></div>'
- +'<div class=g2><div class=card><span class=mut>আজকের কাজের আয়</span><b class=inc>'+fmt(c.td)+'</b></div><div class=card><span class=mut>এই সপ্তাহে খরচ</span><b class=exp>'+fmt(c.ex)+'</b></div><div class=card><span class=mut>UPI-তে পাওয়া</span><b>'+fmt(c.ju)+'</b></div><div class=card><span class=mut>বাকি আছে</span><b>'+fmt(c.du)+'</b></div></div>'
- +'<div class=two><button class="big2 bx" data-a=exp>− খরচ</button><button class="big2 bo" data-a=home>'+esc(S.lbl.own)+'</button></div>'
- +'</div><div><div class=qe><input id=qi placeholder="🎙️ লিখুন বা বলুন: প্রিন্ট ২০ পাতা UPI"><button class=mic data-a=mic>🎤</button><button class=qb data-a=qgo>যোগ</button></div><div class=sl>সার্ভিস (চাপলেই এন্ট্রি)</div><input id=sq placeholder="🔍 সার্ভিস খুঁজুন / Search" value="'+esc(window.SQ||'')+'"><div class=jobs id=jb>'+jgrid()+'</div><button class=sec data-a=tab data-v=cfg>⚙️ সার্ভিস যোগ / রেট বদলান</button></div>'
- +'<div><div class=sl>আজকের এন্ট্রি</div><div class=card>'+(rc.length?rc.map(row).join(''):'<div class=empty>আজ এখনো কোনো এন্ট্রি নেই</div>')+'</div></div></div>'
+ return bkWarn()+'<div class=dash><div class=colA><div class=hero><div class=hl><span>ড্রয়ারে মোট ক্যাশ</span><span>'+dt(S.week.start)+' থেকে</span></div><div class=big>'+fmt(c.dr)+'</div><div class=bar><i style="width:'+mp+'%;background:#fff"></i><i style="width:'+op+'%;background:#ffd166"></i></div><div class=leg><span>আপনার অংশ<b>'+fmt(c.mine)+'</b></span><span>'+esc(S.lbl.ownS)+'<b>'+fmt(c.hm)+'</b></span></div>'
+ +'<div class=mini><div><i>আজকের আয়</i><b>'+fmt(c.td)+'</b></div><div><i>খরচ</i><b>'+fmt(c.ex)+'</b></div><div><i>UPI</i><b>'+fmt(c.ju)+'</b></div><div><i>বাকি</i><b>'+fmt(c.du)+'</b></div></div></div>'
+ +'<div class=two><button class="big2 bx" data-a=exp>− খরচ</button><button class="big2 bo" data-a=home>'+esc(S.lbl.own)+'</button></div></div>'
+ +'<div class=colB><input id=sq placeholder="🔍 সার্ভিস খুঁজুন / Search" value="'+esc(window.SQ||'')+'"><div class=jobs id=jb>'+jgrid()+'</div><button class=sec data-a=tab data-v=cfg>⚙️ সার্ভিস যোগ / রেট বদলান</button></div>'
+ +'<div class=colC><div class=sl>আজকের এন্ট্রি</div><div class=card>'+(rc.length?rc.map(row).join(''):'<div class=empty>আজ এখনো কোনো এন্ট্রি নেই</div>')+'</div></div></div>'
  +(saveOk?'':'<p class=mut>ফোনে ডেটা সেভ হচ্ছে না। সেটিংসে গিয়ে ব্যাকআপ নিন।</p>')}
 function row(x){var col={job:'inc',exp:'exp',home:'own'}[x.t],sg=x.t=='exp'?'−':'+';
  return '<div class="row'+(x.v?' vd':'')+'" data-a=open data-v='+x.id+'><i class="d '+col+'"></i><div class=rm><b>'+esc(x.c)+(x.nm?' · '+esc(x.nm):'')+'</b><small>'+tm(x.ts)+(x.note?' · '+esc(x.note):'')+'</small></div><div class=ra><b class='+col+'>'+sg+fmt(x.a)+'</b>'+(x.due?'<em>বাকি</em>':x.p=='upi'?'<em>UPI</em>':'')+'</div></div>'}
@@ -346,11 +289,12 @@ function vSet(){var c=calc();
  +'<button class=pri data-a=settle id=stb>সেটেলমেন্ট শেষ, নতুন সপ্তাহ শুরু</button></div>'
  +'<div class=card><b>বাবুকে দেখানোর সারাংশ</b><textarea id=out readonly>'+esc(summary())+'</textarea><button class=sec data-a=copy>কপি করুন</button></div>'
  +(S.hist.length?'<h2>আগের সপ্তাহ</h2><div class=card>'+S.hist.slice(-8).reverse().map(function(h){return '<div class=row><div class=rm><b>'+dt(h.start)+' – '+dt(h.end)+'</b><small>'+esc(S.lbl.ownS)+' '+fmt(h.hm)+'</small></div><div class=ra><b class="'+(h.diff==null||h.diff==0?'':h.diff<0?'exp':'inc')+'">'+(h.diff==null?'গোনা হয়নি':h.diff==0?'ঠিক আছে':(h.diff<0?'কম ':'বেশি ')+fmt(Math.abs(h.diff)))+'</b></div></div>'}).join('')+'</div>':'')}
-function vCfg(){return '<h2>সেটিংস</h2>'+svcCard()+namesCard()
- +syBox()+driveBox()+aiBox()+'<div class=card><b>ব্যাকআপ</b><p class=mut>শেষ ব্যাকআপ: '+(function(){try{return localStorage.getItem('lastBk')}catch(e){}})()+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ</button><button class=sec data-a=ec>কাজের CSV (Excel)</button></div><div class=card><b>JSON থেকে ফিরিয়ে আনুন</b><p class=mut>শুধু মার্জ: নতুন এন্ট্রি যোগ হবে, পুরনো কিছু মুছবে না বা বদলাবে না।</p><input type=file id=rf accept=".json,application/json"></div><div class=card><b>গোপনীয়তা</b><p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p></div><p class=mut style="text-align:center">ভার্সন ৬</p>'}
-function r(k){var T=[['home','হোম','🏠'],['list','এন্ট্রি','🧾'],['ai','সহকারী','🤖'],['set','সেটেলমেন্ট','🤝'],['cfg','সেটিংস','⚙️']];
+function vCfg(){var lb='';try{lb=localStorage.getItem('lastBk')||''}catch(e){}
+ var bk='<p class=mut>শেষ ব্যাকআপ: '+(lb||'এখনো নেওয়া হয়নি')+'</p><button class=pri data-a=ej>সম্পূর্ণ JSON ব্যাকআপ ডাউনলোড</button><button class=sec data-a=ec>কাজের CSV (Excel)</button><p class=mut style="margin-top:14px">JSON থেকে ফিরিয়ে আনুন (শুধু মার্জ, কিছু মুছবে না):</p><input type=file id=rf accept=".json,application/json">';
+ return '<h2>সেটিংস</h2>'+acc('svc','🛠️ সার্ভিস ও রেট',svcCard())+acc('nm','🏷️ নাম ও ধরন',namesCard())+acc('cl','☁️ সিঙ্ক ও ব্যাকআপ',syBox()+driveBox()+bk)+acc('ai','🤖 AI ও ভয়েস',aiBox())+acc('pv','🔒 গোপনীয়তা','<p class=mut>হিসাব এই ডিভাইসে থাকে। Google লগইন করলে আপনার নিজের Firebase ক্লাউডেও থাকে, শুধু আপনার জিমেইল ঢুকতে পারে। এনক্রিপ্টেড নয়, তাই নিয়মিত JSON ব্যাকআপ নিন। OTP বা পাসওয়ার্ড কখনো লিখবেন না।</p>')+'<p class=mut style="text-align:center">ভার্সন ৭</p>'}
+function r(k){var T=[['home','হোম','🏠'],['list','এন্ট্রি','🧾'],['set','হিসাব','🤝'],['cfg','সেটিংস','⚙️']];
  $('#v').className=tab=='home'?'wide':'';$('#v').innerHTML={home:vHome,list:vList,ai:vAi,set:vSet,cfg:vCfg}[tab]();
- $('#hd').innerHTML=hdr();$('#nv').innerHTML=nbr()+T.map(function(t){return '<button class="'+(tab==t[0]?'on':'')+'" data-a=tab data-v='+t[0]+'><span class=ni>'+t[2]+'</span>'+t[1]+'</button>'}).join('')+nct();if(!k)window.scrollTo(0,0)}
+ $('#hd').innerHTML=hdr();$('#nv').innerHTML=nbr()+T.map(function(t,i){return (i==2?'<span class=sp></span>':'')+'<button class="'+(tab==t[0]?'on':'')+'" data-a=tab data-v='+t[0]+'><span class=ni>'+t[2]+'</span>'+t[1]+'</button>'}).join('')+nct();fabUI();if(!k)window.scrollTo(0,0)}
 function sheet(h){$('#sh').innerHTML='<div class=bk data-a=close></div><div class=pn>'+h+'</div>';$('#sh').style.display='block'}
 function fld(id,l,ph,num){return '<label>'+l+'<input id='+id+(num?' type=number inputmode=decimal':' type=text')+' placeholder="'+(ph||'')+'"></label>'}
 function openE(t,c){M={t:t,c:c,p:'cash'};var j=S.svc.filter(function(x){return x.id==c})[0],h='';
@@ -400,13 +344,15 @@ sm:function(v){var a=v.split('|'),L=SV().filter(function(s){return s.n!='অন�
  qpick:function(id){var q=M.q,t=M.t;openE('job',id);var e=$('#qi');if(e)e.value='';
   setTimeout(function(){if(q.qty&&$('#qty')){$('#qty').value=q.qty;$('#qty').dispatchEvent(new Event('input',{bubbles:true}))}if(q.amt)$('#amt').value=q.amt;ACT.pay(q.pay);$('#nt').value=t},120)},
  mic:function(){listen('qi',function(){ACT.qgo()})},
- mic2:function(){listen('ai',function(){ACT.aigo()})},
+ mic2:function(){ACT.vrec()},
  aigo:function(){var e=$('#ai'),t=e.value.trim();if(!t)return;e.value='';aiSend(t)},
  th:function(){var h=document.documentElement,c=h.getAttribute('data-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'),n=c=='dark'?'light':'dark';h.setAttribute('data-theme',n);try{localStorage.setItem('thm',n)}catch(e){}},
  dv:function(){if(window.DTOK)return dBackup();if(!window.FB2)return toast('config.js পাওয়া যায়নি');FB2.in().catch(function(){toast('লগইন হয়নি')})},
  dl2:function(){if(!window.DTOK){if(window.FB2)FB2.in().then(dRestore).catch(function(){toast('লগইন হয়নি')});return}dRestore()},
  dr:function(id){drv(DAPI+'/'+id+'?alt=media').then(function(o){ACT.close();impT(JSON.stringify(o))}).catch(function(e){toast('ফাইল আনা যায়নি ('+e+')')})},
  
+pok:function(){var o=PEND.acts.map(doAct);PEND=null;r(1);sheet('<h3>হয়ে গেছে</h3><div class=card>'+o.map(function(x){return '<div class=ln><span>'+esc(x)+'</span></div>'}).join('')+'</div><button class=sec data-a=close>বন্ধ করুন</button>')},
+ vrec:function(){if(REC)return vStop();if(!window.AIRUN){listen(null,function(t){tab='ai';aiSend(t)});return}vStart()},
  si:function(){if(!window.FB2)return toast('Firebase লোড হয়নি');FB2.in().catch(function(){toast('লগইন হয়নি')})},so:function(){FB2.out()},
  ej:function(){dl('lura-hisab-backup-'+tod()+'.json',JSON.stringify(bkData(),null,1));try{localStorage.setItem('lastBk',new Date().toLocaleString('en-IN'));localStorage.setItem('lastBkISO',now())}catch(e){}r();toast('ব্যাকআপ ডাউনলোড হয়েছে')},
  ec:function(){var q=function(s){return '"'+String(s==null?'':s).replace(/"/g,'""')+'"'},R=[['তারিখ','ধরন','ক্যাটাগরি','টাকা','পেমেন্ট','নাম','নোট','অবস্থা'].map(q).join(',')];
@@ -432,7 +378,7 @@ import{initializeApp}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-app
 import{getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider,signOut}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 import{getFirestore,collection,doc,setDoc,onSnapshot}from"https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 if(window.FBCFG){const app=initializeApp(window.FBCFG),au=getAuth(app),fs=getFirestore(app);let un=[];
-window.AIRUN=async(model,sys,msg)=>{const m=await import('https://www.gstatic.com/firebasejs/13.3.0/firebase-ai.js');const ai=m.getAI(app,{backend:new m.GoogleAIBackend()});const g=m.getGenerativeModel(ai,{model,systemInstruction:sys,generationConfig:{responseMimeType:'application/json'}});const r=await g.generateContent(msg);return r.response.text()};
+window.AIRUN=async(model,sys,msg)=>{const m=await import('https://www.gstatic.com/firebasejs/13.3.0/firebase-ai.js');const ai=m.getAI(app,{backend:new m.GoogleAIBackend()});const g=m.getGenerativeModel(ai,{model,systemInstruction:sys,generationConfig:{responseMimeType:'application/json',temperature:0.2}});const r=await g.generateContent(msg);return r.response.text()};
 window.FB2={in:()=>{const p=new GoogleAuthProvider();p.addScope('https://www.googleapis.com/auth/drive.file');return signInWithPopup(au,p).then(r=>{window.DTOK=GoogleAuthProvider.credentialFromResult(r).accessToken;window.dAuto&&window.dAuto()})},out:()=>signOut(au),push:(c,r)=>setDoc(doc(fs,'shops','main',c,r.id),r)};
 onAuthStateChanged(au,u=>{un.forEach(f=>f());un=[];window.fbAuth(u);if(u)['h_entries','h_meta','h_hist','h_svc'].forEach(c=>un.push(onSnapshot(collection(fs,'shops','main',c),sn=>window.fbSnap(c,sn.docs.map(d=>d.data())),e=>window.fbErr(e.code))))})}
 </script>
